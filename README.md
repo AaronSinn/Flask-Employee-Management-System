@@ -1,2 +1,2 @@
-# Flask-Employee-Management-System
+# SquadSync
 Work in progress (～￣▽￣)～
