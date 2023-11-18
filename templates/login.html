@@ -8,7 +8,7 @@
     <div  id="container">
         <form action="#" method="post" novalidate id="form">
             
-            <h1 id="login">Login</h1>
+            <h1 id="login">LOGIN</h1>
 
             <div id="username">
                 {{form.username(placeholder='Username')}}
@@ -21,10 +21,12 @@
             <div id="submitField">
                 {{ form.submit()}}
             </div>
+
         </form>
+
         
         <div id="photo">
-
+            <img src="{{ url_for('static',filename='images/test.png') }}" alt="Image of girl on laptop" id="loginImage">
         </div>
 
     </div>
