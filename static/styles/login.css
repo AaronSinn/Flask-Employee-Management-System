@@ -1,0 +1,41 @@
+#container{
+    display: flex;
+    height: 77vh;
+    width: 60vw;    
+    border: 2px solid black;
+    border-radius: 15px;
+    margin: auto;
+    margin-top: 10vh;
+    background-color: rgb(209, 216, 223);
+}
+
+#form{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: center;
+}
+
+#login{
+    margin-top: 7vh;
+    margin-bottom: 3vh;
+}
+
+
+#usernameInput{
+    margin-top: 7vh;
+    margin-bottom: 3vh;
+    border: 1px solid #ee5f5b;
+    border-radius: 25px;
+    padding: 3vh 3vw 3vh 3vw;
+}
+
+
+
+#passwordInput{
+    margin-top: 3vh;
+    margin-bottom: 7vh;
+    border: 1px solid #ee5f5b;
+    border-radius: 25px;
+    padding: 3vh 3vw 3vh 3vw;
+}

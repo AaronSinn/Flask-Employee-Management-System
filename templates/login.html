@@ -1,22 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-</head>
-<body>
-    <form action="#" method="post" novalidate>
-        <p>{{form.username.label}} <br>
-            {{form.username(size=32)}} <br>
+{% extends "logged_out_base.html" %}
 
-            {{form.password.label}} <br>
-            {{form.password(size=32)}} 
-        </p>
+{% block css %}<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/login.css') }}">{% endblock %}
+
+{% block title %} Login {% endblock %}
+
+{% block content %}
+    <div  id="container">
+        <form action="#" method="post" novalidate id="form">
+            
+            <h1 id="login">Login</h1>
+
+            <div id="username">
+                {{form.username(placeholder='Username')}}
+            </div>
+
+            <div id="password">
+                {{form.password(placeholder='Password')}} 
+            </div>
+
+            <div id="submitField">
+                {{ form.submit()}}
+            </div>
+        </form>
         
-        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-        <p>{{ form.submit() }}</p>
+        <div id="photo">
 
-    </form>
-</body>
-</html>
+        </div>
+
+    </div>
+{% endblock %}
