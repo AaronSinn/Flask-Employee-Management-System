@@ -7,13 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/37379129df.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="https://images.vexels.com/media/users/3/157564/isolated/preview/d7d05c7c1070e49a5385019c254901a6-simple-laptop-icon.png">
     {% block css %} {% endblock %}
     <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-success p-3">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">SquadSync</a>
+          <a class="navbar-brand" href="{{url_for('home')}}">SquadSync</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -21,13 +23,13 @@
           <div class=" collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto ">
               <li class="nav-item">
-                <a class="nav-link mx-2 active" aria-current="page" href="#">Home</a>
+                <a class="nav-link mx-2 active" href="{{url_for('home')}}">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-2" href="#">Login</a>
+                <a class="nav-link mx-2 active" href="{{url_for('login')}}">Login</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-2" href="#">Sign Up</a>
+                <a class="nav-link mx-2 active" href="{{url_for('register')}}">Register</a>
               </li>
             </ul>
           </div>
@@ -40,7 +42,15 @@
 </body>
 
 <footer>
-    
+  <ul id="mediaList">
+  <li><a href="https://www.youtube.com/" target=”_blank”><i class="fa-brands fa-youtube"></i></a></li>
+  <li><a href="https://www.threads.net/login" target=”_blank”><i class="fa-brands fa-threads"></i></a></li>
+  <li><a href="https://www.facebook.com/" target=”_blank”><i class="fa-brands fa-facebook"></i></a></li>
+  <li><a href="https://www.instagram.com/?hl=en" target=”_blank”><i class="fa-brands fa-instagram"></i></a></li>
+  <li><a href="https://www.pinterest.ca/"target=”_blank”><i class="fa-brands fa-pinterest"></i></a></li>
+  </ul>
+
+  <h6>SquadSync 2023</h6>
 </footer>
     
 </html>

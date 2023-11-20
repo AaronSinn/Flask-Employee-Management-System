@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,600;0,9..40,1000;1,9..40,300&display=swap');
+:root{
+    --mainColour: #198754;
+}
+
+#mediaList{
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+}
+
+#mediaList > li{
+    display: inline-block;
+    margin: 10vh 2vw 3vh 2vw;
+}
+
+#mediaList > li > a> i{
+    font-size: xx-large;
+    color: var(--mainColour);
+}
+
+h6{
+    display: flex;
+    justify-content: center;
+    color: var(--mainColour);
+    font-weight: bold;
+}

@@ -1,0 +1,76 @@
+@import url('logged_out_base.css');
+
+#container{
+    display: flex;
+    width: 100%;  
+}
+
+#photoContainer{
+    width: 50%;
+}
+
+#photoContainer > img{
+    margin: 7h 0vh 0vh 7vh;
+    width: 55vw;
+}
+
+#infoContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+
+    margin-top: 7vh;
+}
+
+#squadSync{
+    color: var(--mainColour);
+    font-family: 'DM Sans';
+    text-decoration: underline;
+    font-size: 3.2vw;
+}
+
+h5{
+    color: var(--mainColour);
+    font-family: 'DM Sans';
+    font-weight: 600;
+    margin-top: 2vh;
+    font-size: 2.8vh;
+}
+
+#regDiv{
+    margin-top: 5vh;
+
+}
+
+#regLink{
+    font-family: 'DM Sans';
+    font-size: 2vh;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid rgb(51, 51, 245);
+    border-radius: 25px;
+    padding: 1vh 1vw 1vh 1vw;
+}
+
+#loginDiv{
+    margin-top: 8vh;
+}
+
+#loginLink{
+    font-family: 'DM Sans';
+    font-size: 2vh;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid rgb(51, 51, 245);
+    border-radius: 25px;
+    padding: 1vh 1vw 1vh 1vw;
+}
+
+#description{
+    text-align: center;
+    margin-top: 10vh;
+    font-family: 'DM Sans';
+    color: var(--mainColour);
+    width: 30vw;
+}

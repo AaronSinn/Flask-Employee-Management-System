@@ -1,0 +1,6 @@
+@import url('logged_out_base.css');
+@import url('login.css');
+
+#registerImage{
+    height: 50vh; 
+}

@@ -1,0 +1,35 @@
+{% extends 'logged_out_base.html' %}
+
+{% block css %}<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/index.css') }}">{% endblock %}
+
+{% block title %} Welcome to SquadSync {% endblock %}
+
+{% block content %}
+
+<div id="container">
+    <div id="photoContainer">
+        <img src="{{ url_for('static',filename='images/homeImage.jpg') }}" alt="Teamwork clipart">
+    </div>
+    
+    <div id="infoContainer">
+        <h1 id="squadSync">SquadSync</h1>
+        <h5>Effectively lead and manage your team!</h5>
+
+        <div id="regDiv">
+            <a href="{{url_for('register')}}" id="regLink">Getting Started? Click Here to Reigster!</a>
+        </div>
+
+        <div id="loginDiv">
+            <a href="{{url_for('login')}}" id="loginLink">Already Have an Account? Login Here!</a>
+        </div>
+        
+        <div>
+            <p id="description">SquadSync is a soultion to all of your employee management needs. Stay on top of your business needs by registering employees and managing their department, role, and 
+                salary information. Effectively watch your business grow with a few simple clicks!
+            </p>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
