@@ -1,6 +1,34 @@
 @import url('logged_out_base.css');
 @import url('login.css');
 
+#names{
+    margin-top: 3vh;
+    display: flex;
+    align-items: center;
+}
+
+#firstNameInput{
+    border: 2px solid var(--mainColour);
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-right: none;
+    width: 16vw;
+    padding: 2vh 0vw 2vh 1vw;
+    font-family: 'DM Sans', sans-serif;
+    width: 50%;
+}
+
+#lastNameInput{
+    border: 2px solid var(--mainColour);
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    width: 16vw;
+    padding: 2vh 0vw 2vh 1vw;
+    font-family: 'DM Sans', sans-serif;
+    width: 50%;
+}
+
+
 #registerImage{
-    height: 50vh; 
+    height: 27vw; 
 }
