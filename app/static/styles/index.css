@@ -1,4 +1,4 @@
-@import url('logged_out_base.css');
+@import url('auth/logged_out_base.css');
 
 #container{
     display: flex;

@@ -39,7 +39,7 @@
 
 #passwordInput{
     margin-top: 3vh;
-    margin-bottom: 6vh;
+    margin-bottom: 3vh;
     border: 2px solid var(--mainColour);
     border-radius: 30px;
     width: 16vw;
@@ -78,4 +78,8 @@
 
 #loginImage{
      height: 22vw;
+}
+
+.errorMessage{
+    margin-top: -2vh;
 }

@@ -1,17 +1,20 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import DeclarativeBase
 
-class Base(DeclarativeBase):
-  pass
+def create_app():
+  app = Flask(__name__)
+  app.secret_key = "RickyDickyDooDahGrimes"
+  app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///SquadSync.db'
 
-db = SQLAlchemy(model_class=Base)
+  from .views import views
+  from .auth import auth
 
-app = Flask(__name__)
-app.secret_key = "RickyDickyDooDahGrimes"
+  app.register_blueprint(views, url_prefix='/')
+  app.register_blueprint(auth, url_prefix='/')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///squadSync.db'
+  return app
 
-db.init_app(app)
+# db = SQLAlchemy(app)
 
-from app import views #advoid circular import
+
+# from app import views #advoid circular import

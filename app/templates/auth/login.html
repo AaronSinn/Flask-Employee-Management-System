@@ -1,22 +1,30 @@
 {% extends "auth/logged_out_base.html" %}
 
-{% block css %}<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/login.css') }}">{% endblock %}
+{% block css %}<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/auth/login.css') }}">{% endblock %}
 
 {% block title %} Login {% endblock %}
 
 {% block content %}
     <div  id="container">
-        <form action="#" method="post" novalidate id="form">
-            
+        <form action="#" method="POST" novalidate id="form">
+            {{ form.hidden_tag() }}
             <h1 id="login">LOGIN</h1>
 
             <div id="username">
                 {{form.username(placeholder='Username')}}
             </div>
 
+            {% for error in form.username.errors %}
+            <span style="color: red;" class="errorMessage">{{ error }}</span>
+            {% endfor %}
+
             <div id="password">
                 {{form.password(placeholder='Password')}} 
             </div>
+
+            {% for error in form.password.errors %}
+            <span style="color: red;" class="errorMessage">{{ error }}</span>
+            {% endfor %}
 
             <div id="submitField">
                 {{ form.submit()}}

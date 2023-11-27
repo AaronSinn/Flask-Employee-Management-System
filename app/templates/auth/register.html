@@ -1,13 +1,13 @@
 {% extends 'auth/logged_out_base.html' %}
 
-{% block css %}<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/register.css') }}">{% endblock %}
+{% block css %}<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/auth/register.css') }}">{% endblock %}
 
 {% block title %} Register {% endblock %}
 
 {% block content %}
     <div  id="container">
-        <form action="#" method="post" novalidate id="form">
-            
+        <form action="#" method="POST" novalidate id="form">
+            {{ form.hidden_tag() }}
             <h1 id="login">REIGSTER</h1>
 
             <div id="names">
@@ -15,13 +15,27 @@
                 {{form.lastName(placeholder='Last Name')}}
             </div>
 
+            {% if form.firstName.errors or form.lastName.errors %}
+            {% for error in form.username.errors %}
+            <span style="color: red;" class="errorMessage">{{ error }}</span>
+            {% endfor %}
+            {% endif %}
+
             <div id="username">
                 {{form.username(placeholder='Username')}}
             </div>
+            
+            {% for error in form.username.errors %}
+            <span style="color: red;" class="errorMessage">{{ error }}</span>
+            {% endfor %}
 
             <div id="password">
                 {{form.password(placeholder='Password')}} 
             </div>
+
+            {% for error in form.password.errors %}
+            <span style="color: red;" class="errorMessage">{{ error }}</span>
+            {% endfor %}
 
             <div id="submitField">
                 {{ form.submit()}}
@@ -29,7 +43,6 @@
 
         </form>
 
-        
         <div id="photo">
             <img src="{{ url_for('static',filename='images/registerImage.png') }}" alt="Teamwork Images" id="registerImage">
         </div>

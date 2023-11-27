@@ -3,6 +3,7 @@
 
 #names{
     margin-top: 3vh;
+    margin-bottom: 3vh;
     display: flex;
     align-items: center;
 }
@@ -28,6 +29,25 @@
     width: 50%;
 }
 
+#usernameInput{
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    border: 2px solid var(--mainColour);
+    border-radius: 30px;
+    width: 16vw;
+    padding: 2vh 0vw 2vh 1vw;
+    font-family: 'DM Sans', sans-serif;
+}
+
+#passwordInput{
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    border: 2px solid var(--mainColour);
+    border-radius: 30px;
+    width: 16vw;
+    padding: 2vh 0vw 2vh 1vw;
+    font-family: 'DM Sans', sans-serif;
+}
 
 #registerImage{
     height: 27vw; 
