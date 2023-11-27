@@ -10,6 +10,7 @@ def login():
     if form.validate_on_submit():
         print(form.username.data, form.password.data)
 
+        return render_template('base.html')
     print("Login form errors:", form.errors)
 
     return render_template('auth/login.html', form=form)
