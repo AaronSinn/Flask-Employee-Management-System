@@ -2,3 +2,16 @@
 :root{
     --mainColour: #198754;
 }
+
+a{
+    font-family: 'DM Sans';
+}
+
+.sidebarLink{
+    margin-top: 1vh;
+}
+
+#squadSync{
+    margin-bottom: 2vh;
+    text-decoration: underline;
+}
