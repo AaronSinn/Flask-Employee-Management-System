@@ -14,17 +14,37 @@
                 {{form.username(placeholder='Username')}}
             </div>
 
+            <!-- WTF error -->
             {% for error in form.username.errors %}
-            <span style="color: red;" class="errorMessage">{{ error }}</span>
+                <span style="color: red;" class="errorMessage">{{ error }}</span>
             {% endfor %}
+
+            <!-- Username not found -->
+            {% with usernameErrors = get_flashed_messages(with_categories=true) %}  
+                {% for category, message in usernameErrors %}
+                    {% if category == 'usernameError' %}
+                        <span style="color: red;" class="errorMessage">{{ message }}</span>
+                    {% endif %}
+                {% endfor %}
+            {% endwith %}
 
             <div id="password">
                 {{form.password(placeholder='Password')}} 
             </div>
-
+            
+            <!-- WTF errors -->
             {% for error in form.password.errors %}
-            <span style="color: red;" class="errorMessage">{{ error }}</span>
+                <span style="color: red;" class="errorMessage">{{ error }}</span>
             {% endfor %}
+
+            <!-- If the password is not found -->
+            {% with passwordErrors = get_flashed_messages(with_categories=true) %}
+                {% for category, message in passwordErrors %}
+                    {% if category == 'passwordError' %}
+                        <span style="color: red;" class="errorMessage">{{ message }}</span>
+                    {% endif %}
+                {% endfor %}
+            {% endwith %}
 
             <div id="submitField">
                 {{ form.submit()}}

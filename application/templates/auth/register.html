@@ -15,26 +15,35 @@
                 {{form.lastName(placeholder='Last Name')}}
             </div>
 
-            {% if form.firstName.errors or form.lastName.errors %}
-            {% for error in form.username.errors %}
-            <span style="color: red;" class="errorMessage">{{ error }}</span>
-            {% endfor %}
+            <!-- WTF errors for first and last name -->
+            {% if form.firstName.errors or form.lastName.errors %} <!--if firstname or lastname fields have errors-->
+                {% if form.firstName.errors|length > 0 and form.lastName.errors|length == 0%}   <!-- if only firstname has errors-->
+                    {% for error in form.firstName.errors %}  
+                        <span style="color: red;" class="errorMessage">{{ error }}</span>
+                    {% endfor %}
+                {% else %} <!-- if only lastname has errors-->
+                    {% for error in form.lastName.errors %}
+                        <span style="color: red;" class="errorMessage">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
             {% endif %}
 
             <div id="username">
                 {{form.username(placeholder='Username')}}
             </div>
             
+            <!-- WTF errors for username -->
             {% for error in form.username.errors %}
-            <span style="color: red;" class="errorMessage">{{ error }}</span>
+                <span style="color: red;" class="errorMessage">{{ error }}</span>
             {% endfor %}
 
             <div id="password">
                 {{form.password(placeholder='Password')}} 
             </div>
 
+            <!-- WTF errors for password -->
             {% for error in form.password.errors %}
-            <span style="color: red;" class="errorMessage">{{ error }}</span>
+                <span style="color: red;" class="errorMessage">{{ error }}</span>
             {% endfor %}
 
             <div id="submitField">

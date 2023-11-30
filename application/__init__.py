@@ -6,7 +6,7 @@ db = SQLAlchemy()
 
 def create_app():
   app = Flask(__name__)
-  app.secret_key = "RickyDickyDooDahGrimes"
+  app.secret_key = "RickyDickyDooDahGrimesBoomShakaLaka"
   app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///SquadSync.db'
 
   db.init_app(app)
