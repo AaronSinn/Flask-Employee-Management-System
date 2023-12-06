@@ -45,6 +45,10 @@
                     {% endif %}
                 {% endfor %}
             {% endwith %}
+            
+            <div>
+                <p id="rememberMe">{{ form.rememberMe() }} {{ form.rememberMe.label }}</p>
+            </div>
 
             <div id="submitField">
                 {{ form.submit()}}

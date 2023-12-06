@@ -49,6 +49,13 @@
     font-family: 'DM Sans', sans-serif;
 }
 
+#rememberMe{
+    color: var(--mainColour);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    margin-top: 1vh;
+}
+
 #registerImage{
     height: 27vw; 
 }

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/auth/logout.css') }}">
+    <title>Logout</title>
+</head>
+<body>
+    <div class="container">
+        <h2 id="header">Logout</h2>
+        <p class="para">Hi {{name}}!</p>
+        <p class="para">You have been Logged out successfully.</p>
+        
+        <div class="button">
+            <span id="goHome"><a href="{{ url_for('views.home') }}">Return Home</a></span>
+        </div>
+    </div>
+</body>
+</html>

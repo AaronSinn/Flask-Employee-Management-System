@@ -46,6 +46,10 @@
                 <span style="color: red;" class="errorMessage">{{ error }}</span>
             {% endfor %}
 
+            <div>
+                <p id="rememberMe">{{ form.rememberMe() }} {{ form.rememberMe.label }}</p>
+            </div>
+
             <div id="submitField">
                 {{ form.submit()}}
             </div>

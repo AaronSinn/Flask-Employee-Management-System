@@ -47,8 +47,15 @@
     font-family: 'DM Sans', sans-serif;
 }
 
+#rememberMe{
+    color: var(--mainColour);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    margin-top: 1vh;
+}
+
 #submit{
-    margin-top: 3vh;
+    margin-top: 2vh;
     padding: 1.5vh 3.5vw 1.5vh 3.5vw;
     border-radius: 30px;
     border: 2px solid black;

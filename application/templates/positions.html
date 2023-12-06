@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Positions{% endblock %}
+
+{% block css %} 
+    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/positions.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<h1>Positions</h1>
+
+<div class="tableContainer">
+    <div id="table"></div>
+</div>
+
+<script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+<script type="module">
+    import { Grid, h } from "https://unpkg.com/gridjs?module";
+
+    // var positionsData = [
+    //     {% for position in positions %}
+    //         {
+    //             // id: {{position.id}},
+    //             title: '{{position.title}}',
+    //             description: '{{position.description}}',
+    //             basePay: {{position.basePay}},
+    //             edit: null,
+    //             delete: null
+    //         },
+    //     {% endfor %}
+    // ];
+
+    new gridjs.Grid({
+        columns: [
+            // { id: 'id', name: 'ID', sort: false},
+            { id: 'title', name: 'Title' },
+            { id: 'description', name: 'Description', sort: false },
+            { id: 'basePay', name: 'Base Pay', formatter: (cell) => `$${cell}`},
+            { id: 'edit', name: 'Edit', sort: false, formatter: (cell, row) => {
+                return h('button', {onClick: () => window.location.href="positions/edit"}, 'Edit');
+                }
+            },
+            { id: 'delete', name: 'Delete', sort: false, formatter: (cell, row) => {
+                return h('button', {onClick: () => alert(`Deleting "${row.cells[0].data}" "${row.cells[1].data}"`)}, 'Delete');
+                }
+            }
+        ],
+        server: {
+          url: '/RickGrimes123/positions/data',
+          method: 'GET',
+          then: results => results.data,
+          total: results => results.total,
+        },
+        search: true,
+        sort: true,
+        pagination: true,
+        style: {
+            th: {
+                'background-color': '#198754',
+                'color': 'white',
+                'text-align': 'center'
+            },
+            td: {
+            'text-align': 'center'
+            }
+        }
+    }).render(document.getElementById('table'));
+</script>
+{% endblock %}
