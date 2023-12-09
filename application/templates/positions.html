@@ -19,36 +19,29 @@
 <script type="module">
     import { Grid, h } from "https://unpkg.com/gridjs?module";
 
-    // var positionsData = [
-    //     {% for position in positions %}
-    //         {
-    //             // id: {{position.id}},
-    //             title: '{{position.title}}',
-    //             description: '{{position.description}}',
-    //             basePay: {{position.basePay}},
-    //             edit: null,
-    //             delete: null
-    //         },
-    //     {% endfor %}
-    // ];
+    const editableCellAttributes = (data, row, col) => {
+          if (row) {
+            // return {contentEditable: 'true', 'data-element-id': row.cells[0].data};
+            return {contentEditable: 'true', 'data-element-id': row.cells[0].data};
+          }
+          else {
+            return {};
+          }
+      };
 
     new gridjs.Grid({
         columns: [
-            // { id: 'id', name: 'ID', sort: false},
-            { id: 'title', name: 'Title' },
-            { id: 'description', name: 'Description', sort: false },
-            { id: 'basePay', name: 'Base Pay', formatter: (cell) => `$${cell}`},
-            { id: 'edit', name: 'Edit', sort: false, formatter: (cell, row) => {
-                return h('button', {onClick: () => window.location.href="positions/edit"}, 'Edit');
-                }
-            },
-            { id: 'delete', name: 'Delete', sort: false, formatter: (cell, row) => {
+            { id: 'id', sort: false, 'hidden': true},
+            { id: 'title', name: 'Title', resizable: true,'attributes': editableCellAttributes},
+            { id: 'description', name: 'Description', sort: false, resizable: true,'attributes': editableCellAttributes},
+            { id: 'basePay', name: 'Base Pay', formatter: (cell) => `$${cell}`, width: 200,resizable: true,'attributes': editableCellAttributes},
+            { id: 'delete', name: 'Delete', sort: false, width: 200,formatter: (cell, row) => {
                 return h('button', {onClick: () => alert(`Deleting "${row.cells[0].data}" "${row.cells[1].data}"`)}, 'Delete');
                 }
             }
-        ],
+        ], 
         server: {
-          url: '/RickGrimes123/positions/data',
+          url: '/{{username}}/positions/data',
           method: 'GET',
           then: results => results.data,
           total: results => results.total,
@@ -67,5 +60,32 @@
             }
         }
     }).render(document.getElementById('table'));
+
+    let savedValue;
+
+    table.addEventListener('focusin', ev => {
+        if (ev.target.tagName === 'TD') {
+          savedValue = ev.target.textContent;
+        }
+    });
+
+    table.addEventListener('focusout', ev => {
+        if (ev.target.tagName === 'TD') {
+          if (savedValue !== ev.target.textContent) {
+            console.log(savedValue, ev.target.textContent);
+            fetch('/{{username}}/positions/data', {
+              method: 'POST',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({
+                id: ev.target.dataset.elementId,
+                [ev.target.dataset.columnId]: ev.target.textContent
+              }),
+            });
+          }
+          savedValue = undefined;
+        }
+    });
+
+
 </script>
 {% endblock %}

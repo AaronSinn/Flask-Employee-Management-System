@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, abort
 from flask_login import login_required, current_user
 from .models import Admin, Position
 from . import db
@@ -16,4 +16,21 @@ def data(username):
         }
     
     if request.method == 'POST':
+        data = request.get_json()
+        print("DATA:", data)
+        if 'id' not in data:
+            abort(400)
+        position = Position.query.get(data['id'])
         
+        if 'title' in data:
+            setattr(position, 'title', data['title'])
+
+        if 'description' in data:
+            setattr(position, 'description', data['description'])
+        
+        if 'basePay' in data:
+            setattr(position, 'basePay', data['basePay'])
+
+        db.session.commit()
+
+        return '', 204
