@@ -1,6 +1,8 @@
-from flask import Blueprint, request, abort
+from flask import Blueprint, request, abort, flash
 from flask_login import login_required, current_user
 from .models import Admin, Position
+from .forms import PositionForm
+from .views import *
 from . import db
 
 api = Blueprint('api', __name__)
@@ -36,8 +38,23 @@ def data(username):
         return '', 204
     
     if request.method == 'PUT':
-        return
-    
+        data = request.get_json()
+        print(data)
+
+        if data['title'].strip() == '' or data['description'].strip() == '' or data['basePay'] == '':
+            return '', 404 #TODO: Put proper http code
+        else:
+            position = Position.query.filter_by(title=data['title']).first()
+            print(position)
+            if position:
+                flash('Positon title already exists')
+                return '', 406 #TODO: Put proper http code
+            else:
+                new_position = Position(title=data['title'], description=data['description'], basePay=data['basePay'], admin_id=current_user.id)
+                db.session.add(new_position)
+                db.session.commit()
+
+                return '', 200
     if request.method == 'DELETE':
         data = request.get_json()
 

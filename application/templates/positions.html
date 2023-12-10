@@ -9,31 +9,31 @@
 
 {% block content %}
 
-<h1>Positions</h1>
+<h1 id="title">Positions</h1>
+<!-- <hr style="width: 83vw; margin-bottom: 2vh;"> -->
 
 <div class="tableContainer">
     <div id="table"></div>
 </div>
 
 <div class="formContainer">
-  <form action="", method="PUT", novalidate id="form">
-
-    <div class="formTitle">
-      <h2>Add Position</h2>
-    </div>
-
+  <form action="", method="PUT", novalidate, id="form">
     {{ form.hidden_tag() }}
+    
+    <div>
+      <h2 id="formTitle">Add Position</h2>
+    </div>
 
     <div class="titleDiv">
       {{form.title(placeholder='Title')}}
     </div>
 
-    <div class="descriptionDiv">
-      {{form.description(placeholder='Description')}}
-    </div>
-
     <div class="basePayDiv">
       {{form.basePay(placeholder='Base Pay')}}
+    </div>
+
+    <div class="descriptionDiv">
+      {{form.description(placeholder='Description')}}
     </div>
 
     <div class="submitDiv">
@@ -126,10 +126,27 @@
         }
     });
 
-    //PUT Request
-    document.getElementById('addPosButton').onClick = () =>{
+    //prevents page from resubmiting when the add position form is submited
+    // var form = document.getElementById("form");
+    // function handleForm(event) { event.preventDefault(); } 
+    // form.addEventListener('submit', handleForm);
 
-    }
+    //I hate this hack so much. Flask-wtf wants to route to the api and leave the page so now I gotta do this
+    document.getElementById("submit").addEventListener("click", () =>{
+      var titleInput = document.getElementById('titleInput');
+      var descriptionInput = document.getElementById('descriptionInput');
+      var basePayInput = document.getElementById('basePayInput');
 
+      console.log(titleInput.value);
+      fetch('/{{username}}/positions/data', {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          title: titleInput.value,
+          description: descriptionInput.value,
+          basePay: basePayInput.value
+        }),
+      });
+  })
 </script>
 {% endblock %}

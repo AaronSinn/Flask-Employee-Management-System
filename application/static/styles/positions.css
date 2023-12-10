@@ -2,6 +2,12 @@
     --mainColour: #198754;
 }
 
+#title{
+    text-align: center;
+    color: #198754;
+    margin-bottom: 1vh;
+}
+
 .tableContainer{
     display: inline-flex;
     max-width: 83vw;
@@ -55,19 +61,22 @@ td[data-column-id="edit"] > button:hover{
 }
 
 .formContainer{
+    text-align: center;
     display: flex;
     width: 25vw;
     justify-content: center;
-    align-items: center;
     margin-top: 4vh;
-
-    background-color: antiquewhite;
+    border: 2px solid var(--mainColour);
+    border-radius: 30px;
+    background-color: rgb(240, 240, 240);
     font-family: 'DM Sans', sans-serif;
-
 }
 
-.formTitle{
+#formTitle{
+    margin-top: 1vh;
     color: var(--mainColour);
+    font-weight: 600;
+    text-decoration: underline;
 }
 
 #titleInput{
@@ -75,12 +84,13 @@ td[data-column-id="edit"] > button:hover{
     border-radius: 30px;
     padding: 1vh 1vw 1vh 1vw;
     margin: 2vh 0vw 2vh 0vw;
+    width: 23vw;
 }
 
 #descriptionInput{
     border: 2px solid var(--mainColour);
     border-radius: 30px;
-    padding: 1vh 1vw 1vh 1vw;
+    padding: 1vh 1vw 10vh 1vw;
     margin: 2vh 0vw 2vh 0vw;
     width: 23vw;
 }
@@ -90,11 +100,13 @@ td[data-column-id="edit"] > button:hover{
     border-radius: 30px;
     padding: 1vh 1vw 1vh 1vw;
     margin: 2vh 0vw 2vh 0vw;
+    width: 23vw;
 }
 
 #submit{
     border: 2px solid var(--mainColour);
     border-radius: 10px;
+    margin: 1vh 0vw 1vh 0vw;
     padding: 1vh 2vw 1vh 2vw;
     font-size: 1em;
     background-color: #198754;
