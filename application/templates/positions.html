@@ -15,6 +15,35 @@
     <div id="table"></div>
 </div>
 
+<div class="formContainer">
+  <form action="", method="PUT", novalidate id="form">
+
+    <div class="formTitle">
+      <h2>Add Position</h2>
+    </div>
+
+    {{ form.hidden_tag() }}
+
+    <div class="titleDiv">
+      {{form.title(placeholder='Title')}}
+    </div>
+
+    <div class="descriptionDiv">
+      {{form.description(placeholder='Description')}}
+    </div>
+
+    <div class="basePayDiv">
+      {{form.basePay(placeholder='Base Pay')}}
+    </div>
+
+    <div class="submitDiv">
+      {{form.submit()}}
+    </div>
+
+  </form>
+  <!-- <button type="button" class="btn btn-success btn-lg" id="addPosButton"> <i class="fa-solid fa-plus"></i> Add Positions</i></button> -->
+</div>
+
 <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
 <script type="module">
     import { Grid, h } from "https://unpkg.com/gridjs?module";
@@ -35,8 +64,19 @@
             { id: 'title', name: 'Title', resizable: true,'attributes': editableCellAttributes},
             { id: 'description', name: 'Description', sort: false, resizable: true,'attributes': editableCellAttributes},
             { id: 'basePay', name: 'Base Pay', formatter: (cell) => `$${cell}`, width: 200,resizable: true,'attributes': editableCellAttributes},
+            
+            //used to delete rows
             { id: 'delete', name: 'Delete', sort: false, width: 200,formatter: (cell, row) => {
-                return h('button', {onClick: () => alert(`Deleting "${row.cells[0].data}" "${row.cells[1].data}"`)}, 'Delete');
+                return h('button', {onClick: () =>{
+                  console.log(row.cells[0]);
+                  fetch('/{{username}}/positions/data', {
+                    method: 'DELETE',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                      id: row.cells[0].data
+                    }),
+                  });
+                }}, 'Delete');
                 }
             }
         ], 
@@ -72,7 +112,7 @@
     table.addEventListener('focusout', ev => {
         if (ev.target.tagName === 'TD') {
           if (savedValue !== ev.target.textContent) {
-            console.log(savedValue, ev.target.textContent);
+            // console.log(savedValue, ev.target.textContent);
             fetch('/{{username}}/positions/data', {
               method: 'POST',
               headers: {'Content-Type': 'application/json'},
@@ -86,6 +126,10 @@
         }
     });
 
+    //PUT Request
+    document.getElementById('addPosButton').onClick = () =>{
+
+    }
 
 </script>
 {% endblock %}

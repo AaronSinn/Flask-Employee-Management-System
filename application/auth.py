@@ -40,7 +40,7 @@ def register():
     form = RegisterForm()
 
     if form.validate_on_submit():
-        print(form.firstName.data, form.lastName.data, form.username.data, form.password.data)
+        # print(form.firstName.data, form.lastName.data, form.username.data, form.password.data)
         firstName = form.firstName.data
         lastName = form.lastName.data
         username = form.username.data

@@ -5,7 +5,7 @@ from . import db
 
 api = Blueprint('api', __name__)
 
-@api.route("/<username>/positions/data", methods=['GET', 'POST'])
+@api.route("/<username>/positions/data", methods=['GET', 'POST', 'PUT', 'DELETE'])
 def data(username):
     if request.method == 'GET':
         admin = Admin.query.filter_by(username=username).first()
@@ -32,5 +32,15 @@ def data(username):
             setattr(position, 'basePay', data['basePay'])
 
         db.session.commit()
+
+        return '', 204
+    
+    if request.method == 'PUT':
+        return
+    
+    if request.method == 'DELETE':
+        data = request.get_json()
+
+        print(data)
 
         return '', 204

@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, url_for, redirect
 from flask_login import login_required, current_user
+from .forms import PositionForm
 from .models import Admin, Position
 from . import db
 
@@ -24,7 +25,7 @@ def dashboard(username):
 @views.route('/<username>/positions')
 def positions(username):
     admin = current_user.id
-
+ 
     # new_positions = Position(title="Doctor", description="Patch up wounds.", basePay=80000, admin_id=admin)
     # db.session.add(new_positions)
 
@@ -41,8 +42,10 @@ def positions(username):
 
 
     positions = Position.query.filter_by(admin_id=current_user.id)
+    
+    form = PositionForm()
 
-    return render_template('positions.html', name=current_user.firstName + " " + current_user.lastName, positions=positions, username=username, views=views)
+    return render_template('positions.html', name=current_user.firstName + " " + current_user.lastName, positions=positions, username=username, form=form)
 
 # @login_required
 # @views.route('/<username>/positions/edit')
