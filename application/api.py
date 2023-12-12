@@ -1,7 +1,7 @@
 from flask import Blueprint, request, abort, flash
 from flask_login import login_required, current_user
-from .models import Admin, Position
-from .forms import PositionForm
+from datetime import datetime
+from .models import Admin, Position, Employee
 from .views import *
 from . import db
 
@@ -22,6 +22,13 @@ def data(username):
         print("DATA:", data)
         if 'id' not in data:
             abort(400)
+
+        position = Position.query.filter_by(title=data['title']).first()
+
+        if position:
+            flash("Position already exists")
+            return '', 400
+
         position = Position.query.get(data['id'])
         
         if 'title' in data:
@@ -42,22 +49,39 @@ def data(username):
         print(data)
 
         if data['title'].strip() == '' or data['description'].strip() == '' or data['basePay'] == '':
-            return '', 404 #TODO: Put proper http code
+            return '', 400
         else:
             position = Position.query.filter_by(title=data['title']).first()
-            print(position)
+            #print(position)
             if position:
                 flash('Positon title already exists')
-                return '', 406 #TODO: Put proper http code
+                return '', 400
             else:
+                print('Data sent is good')
                 new_position = Position(title=data['title'], description=data['description'], basePay=data['basePay'], admin_id=current_user.id)
                 db.session.add(new_position)
                 db.session.commit()
-
+                print('Data commited')
+                
                 return '', 200
+            
     if request.method == 'DELETE':
         data = request.get_json()
-
         print(data)
 
+        Position.query.filter_by(id=data['id']).delete()
+        db.session.commit()
+
         return '', 204
+    
+@api.route('/<username>/employees/data', methods=['GET', 'POST', 'PUT', 'DELETE'])
+def employees(username):
+
+    if request.method == 'GET':
+        admin = Admin.query.filter_by(username=username).first()
+        employees = Employee.query.filter_by(admin_id=admin.id)
+
+        return {
+            'data': [Employee.to_dict() for Employee in employees]
+        }
+    

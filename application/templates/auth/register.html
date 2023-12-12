@@ -37,6 +37,10 @@
                 <span style="color: red;" class="errorMessage">{{ error }}</span>
             {% endfor %}
 
+            {% for message in get_flashed_messages() %}
+                <span style="color: red;" class="errorMessage">{{ message }}</span>
+            {% endfor %}
+
             <div id="password">
                 {{form.password(placeholder='Password')}} 
             </div>

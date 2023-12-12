@@ -7,10 +7,11 @@ a{
     font-family: 'DM Sans';
 }
 
-.container-fluid{
+.container-fluid{ 
     float: left;
     max-width: 12vw;
     margin-right: 1vw;
+    position: fixed;
 }
 
 .sidebarLink{ 

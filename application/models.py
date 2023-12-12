@@ -20,8 +20,21 @@ class Employee(db.Model):
     salary = db.Column(db.Float, nullable=False) 
     dateHired = db.Column(db.DateTime, nullable=False)
     birthday = db.Column(db.DateTime, nullable=True)
-    position = db.relationship('Position', uselist=False, backref='employee')
+    position_id = db.Column(db.Integer, db.ForeignKey('position.id'))
     admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'))
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'firstName': self.firstName,
+            'lastName': self.lastName,
+            'email': self.email,
+            'phoneNumber': self.phoneNumber,
+            'salary': self.salary,
+            'dateHired': self.dateHired,
+            'birthday': self.birthday,
+            'admin_id': self.admin_id
+        }
 
 class Position(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -29,7 +42,7 @@ class Position(db.Model):
     description = db.Column(db.String(175), nullable=False)
     basePay = db.Column(db.Integer)
     admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'))
-    employee_id = db.Column(db.Integer, db.ForeignKey('employee.id'))
+    employees = db.relationship('Employee', backref='employee')
 
     def to_dict(self):
         return {
@@ -37,6 +50,5 @@ class Position(db.Model):
             'title': self.title,
             'description': self.description,
             'basePay': self.basePay,
-            'admin_id': self.admin_id,
-            'employee_id': self.employee_id
+            'admin_id': self.admin_id
         }

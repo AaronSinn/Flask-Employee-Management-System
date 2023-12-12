@@ -1,49 +1,19 @@
 {% extends 'base.html' %}
 
-{% block title %}Positions{% endblock %}
+{% block title %}Employees{% endblock %}
 
 {% block css %} 
     <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ url_for('static',filename='styles/positions.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/employees.css') }}">
 {% endblock %}
 
 {% block content %}
 
-<h1 id="title">Positions</h1>
-<!-- <hr style="width: 83vw; margin-bottom: 2vh;"> -->
+<h1 id="title">Employees</h1>
 
 <div class="mainContent">
-  <div class="tableContainer">
     <div id="table"></div>
-  </div>
 
-  <div class="formContainer">
-    <form action="", method="PUT", novalidate, id="form">
-      {{ form.hidden_tag() }}
-      
-      <div>
-        <h2 id="formTitle">Add Position</h2>
-      </div>
-
-      <div class="titleDiv">
-        {{form.title(placeholder='Title')}}
-      </div>
-
-      <div class="basePayDiv">
-        {{form.basePay(placeholder='Base Pay')}}
-      </div>
-
-      <div class="descriptionDiv">
-        {{form.description(placeholder='Description')}}
-      </div>
-
-      <div class="submitDiv">
-        {{form.submit()}}
-      </div>
-
-    </form>
-    <!-- <button type="button" class="btn btn-success btn-lg" id="addPosButton"> <i class="fa-solid fa-plus"></i> Add Positions</i></button> -->
-  </div>
 </div>
 
 <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
@@ -63,15 +33,20 @@
     new gridjs.Grid({
         columns: [
             { id: 'id', sort: false, 'hidden': true},
-            { id: 'title', name: 'Title', resizable: true,'attributes': editableCellAttributes},
-            { id: 'description', name: 'Description', sort: false, resizable: true,'attributes': editableCellAttributes},
-            { id: 'basePay', name: 'Base Pay', formatter: (cell) => `$${cell}`, width: 200,resizable: true,'attributes': editableCellAttributes},
+            { id: 'firstName', name: 'First Name', resizable: true,'attributes': editableCellAttributes},
+            { id: 'lastName', name: 'Last Name', resizable: true,'attributes': editableCellAttributes},
+            { id: 'position', name: 'Last Name', resizable: true,'attributes': editableCellAttributes},
+            { id: 'email', name: 'Email', resizable: true,'attributes': editableCellAttributes},
+            { id: 'phoneNumber', name: 'Phone Number', resizable: true,'attributes': editableCellAttributes},
+            { id: 'salary', name: 'Salary', formatter: (cell) => `$${cell}`, width: 200,resizable: true,'attributes': editableCellAttributes},
+            { id: 'dateHired', name: 'Date Hired', resizable: true,'attributes': editableCellAttributes},
+            { id: 'birthday', name: 'Birthday', resizable: true,'attributes': editableCellAttributes},
             
             //used to delete rows
             { id: 'delete', name: 'Delete', sort: false, width: 200,formatter: (cell, row) => {
                 return h('button', {onClick: () =>{
                   console.log(row.cells[0]);
-                  fetch('/{{username}}/positions/data', {
+                  fetch('/{{username}}/employees/data', {
                     method: 'DELETE',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
@@ -84,7 +59,7 @@
             }
         ], 
         server: {
-          url: '/{{username}}/positions/data',
+          url: '/{{username}}/employees/data',
           method: 'GET',
           then: results => results.data,
           total: results => results.total,
@@ -116,7 +91,7 @@
         if (ev.target.tagName === 'TD') {
           if (savedValue !== ev.target.textContent) {
             // console.log(savedValue, ev.target.textContent);
-            fetch('/{{username}}/positions/data', {
+            fetch('/{{username}}/employees/data', {
               method: 'POST',
               headers: {'Content-Type': 'application/json'},
               body: JSON.stringify({
@@ -135,7 +110,7 @@
       var descriptionInput = document.getElementById('descriptionInput');
       var basePayInput = document.getElementById('basePayInput');
 
-      fetch('/{{username}}/positions/data', {
+      fetch('/{{username}}/employees/data', {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
@@ -146,4 +121,5 @@
       });
   })
 </script>
+
 {% endblock %}

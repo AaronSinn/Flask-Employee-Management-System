@@ -6,6 +6,11 @@
     text-align: center;
     color: #198754;
     margin-bottom: 1vh;
+    text-decoration: underline;
+}
+
+.mainContent{
+    margin-left: 13vw;
 }
 
 .tableContainer{
