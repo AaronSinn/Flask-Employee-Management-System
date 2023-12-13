@@ -15,7 +15,7 @@
 
 .tableContainer{
     display: inline-flex;
-    max-width: 83vw;
+    max-width: 86vw;
 }
 
 #table{
@@ -58,11 +58,6 @@ td[data-column-id="edit"] > button{
     border: 1px solid black;
     border-radius: 20px;
     padding: 0.5vh 1vw 0.5vh 1vw ;
-}
-
-td[data-column-id="edit"] > button:hover{
-    background-color: rgb(255, 253, 147);
-    transition: 200ms;
 }
 
 .formContainer{

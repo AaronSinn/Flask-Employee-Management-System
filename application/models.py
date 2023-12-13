@@ -18,12 +18,18 @@ class Employee(db.Model):
     email = db.Column(db.String(100), nullable=False)
     phoneNumber = db.Column(db.String(100), nullable=True)
     salary = db.Column(db.Float, nullable=False) 
-    dateHired = db.Column(db.DateTime, nullable=False)
-    birthday = db.Column(db.DateTime, nullable=True)
+    dateHired = db.Column(db.Date, nullable=False)
+    birthday = db.Column(db.Date, nullable=True)
     position_id = db.Column(db.Integer, db.ForeignKey('position.id'))
     admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'))
 
     def to_dict(self):
+        position = Position.query.filter_by(id=self.position_id).first()
+
+        if position == None:
+            return '', 400
+        
+        positionTitle = position.title
         return {
             'id': self.id,
             'firstName': self.firstName,
@@ -31,8 +37,9 @@ class Employee(db.Model):
             'email': self.email,
             'phoneNumber': self.phoneNumber,
             'salary': self.salary,
-            'dateHired': self.dateHired,
-            'birthday': self.birthday,
+            'dateHired': str(self.dateHired),
+            'birthday': str(self.birthday),
+            'position': positionTitle,
             'admin_id': self.admin_id
         }
 

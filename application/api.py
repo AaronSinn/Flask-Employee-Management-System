@@ -17,7 +17,7 @@ def data(username):
             'data': [Position.to_dict() for Position in positions]
         }
     
-    if request.method == 'POST':
+    elif request.method == 'POST':
         data = request.get_json()
         print("DATA:", data)
         if 'id' not in data:
@@ -44,7 +44,7 @@ def data(username):
 
         return '', 204
     
-    if request.method == 'PUT':
+    elif request.method == 'PUT':
         data = request.get_json()
         print(data)
 
@@ -65,9 +65,8 @@ def data(username):
                 
                 return '', 200
             
-    if request.method == 'DELETE':
+    elif request.method == 'DELETE':
         data = request.get_json()
-        print(data)
 
         Position.query.filter_by(id=data['id']).delete()
         db.session.commit()
@@ -85,3 +84,16 @@ def employees(username):
             'data': [Employee.to_dict() for Employee in employees]
         }
     
+    elif request.method == 'POST':
+        return
+
+    elif request.method == 'PUT':
+        return 
+    
+    elif request.method == 'DELETE':
+        data = request.get_json()
+
+        Employee.query.filter_by(id=data['id']).delete()
+        db.session.commit()
+
+        return '', 204

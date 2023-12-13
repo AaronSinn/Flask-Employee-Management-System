@@ -12,7 +12,9 @@
 <h1 id="title">Employees</h1>
 
 <div class="mainContent">
+  <div class="tableContainer">
     <div id="table"></div>
+  </div>
 
 </div>
 
@@ -35,15 +37,15 @@
             { id: 'id', sort: false, 'hidden': true},
             { id: 'firstName', name: 'First Name', resizable: true,'attributes': editableCellAttributes},
             { id: 'lastName', name: 'Last Name', resizable: true,'attributes': editableCellAttributes},
-            { id: 'position', name: 'Last Name', resizable: true,'attributes': editableCellAttributes},
+            { id: 'position', name: 'Position', resizable: true,'attributes': editableCellAttributes},
             { id: 'email', name: 'Email', resizable: true,'attributes': editableCellAttributes},
             { id: 'phoneNumber', name: 'Phone Number', resizable: true,'attributes': editableCellAttributes},
-            { id: 'salary', name: 'Salary', formatter: (cell) => `$${cell}`, width: 200,resizable: true,'attributes': editableCellAttributes},
-            { id: 'dateHired', name: 'Date Hired', resizable: true,'attributes': editableCellAttributes},
-            { id: 'birthday', name: 'Birthday', resizable: true,'attributes': editableCellAttributes},
+            { id: 'salary', name: 'Salary', formatter: (cell) => `$${cell}`, width: 150, resizable: true,'attributes': editableCellAttributes},
+            { id: 'dateHired', name: 'Date Hired', width: 170, resizable: true,'attributes': editableCellAttributes},
+            { id: 'birthday', name: 'Birthday', width: 170, resizable: true,'attributes': editableCellAttributes},
             
             //used to delete rows
-            { id: 'delete', name: 'Delete', sort: false, width: 200,formatter: (cell, row) => {
+            { id: 'delete', name: 'Delete', sort: false, width: 150, formatter: (cell, row) => {
                 return h('button', {onClick: () =>{
                   console.log(row.cells[0]);
                   fetch('/{{username}}/employees/data', {

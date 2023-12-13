@@ -21,3 +21,8 @@ class PositionForm(FlaskForm):
     description = StringField('Description', validators=[DataRequired()], id='descriptionInput')
     basePay = IntegerField('Base Pay', validators=[DataRequired()], id='basePayInput')
     submit = SubmitField('Add position')
+
+class EmployeeForm(FlaskForm):
+    firstName = StringField('FirstName', validators=[DataRequired()], id='firstNameInput')
+    lastName = StringField('LastName', validators=[DataRequired()], id='lastNameInput')
+    

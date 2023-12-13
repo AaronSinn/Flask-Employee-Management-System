@@ -42,7 +42,7 @@ def employees(username):
     # Obj2 = datetime(year=2003, month=7, day=13)
     # birthday = Obj2.date()
 
-    # position = Position.query.filter_by(title='Doctor').first()
+    # position = Position.query.filter_by(title='test').first()
     # if position:
     #     position_id = position.id
 
@@ -50,6 +50,6 @@ def employees(username):
     # db.session.add(new_employee)
     # db.session.commit()
 
-    return render_template('employees.html', name=current_user.firstName + " " + current_user.lastName)
+    return render_template('employees.html', name=current_user.firstName + " " + current_user.lastName, username=username)
 
 
