@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, url_for, redirect
 from flask_login import login_required, current_user
 from datetime import datetime
-from .forms import PositionForm
+from .forms import PositionForm, EmployeeForm
 from .models import Admin, Position, Employee
 from . import db
 
@@ -50,6 +50,17 @@ def employees(username):
     # db.session.add(new_employee)
     # db.session.commit()
 
-    return render_template('employees.html', name=current_user.firstName + " " + current_user.lastName, username=username)
+    positions = Position.query.filter_by(admin_id=current_user.id).all()
+
+    positionList = []
+    for position in positions:
+        positionList.append((position.id, position.title))
+
+    # print("Position List:", positionList)
+
+    form = EmployeeForm()
+    form.position.choices = positionList
+
+    return render_template('employees.html', name=current_user.firstName + " " + current_user.lastName, username=username, form=form)
 
 

@@ -16,6 +16,47 @@
     <div id="table"></div>
   </div>
 
+  <div class="formContainer">
+    <form action="", method="PUT", novalidate, id="form">
+      {{ form.hidden_tag() }}
+
+      <div>
+        <h2>Add Employee</h2>
+      </div>
+
+      <div>
+        <span>{{form.firstName(placeholder='First Name')}}</span>
+        <span>{{form.lastName(placeholder='Last Name')}}</span>
+      </div>
+
+      <div>
+        {{form.email(placeholder='Email')}}
+      </div>
+
+      <div>
+        {{form.phoneNumber(placeholder='Phone Number')}}
+      </div>
+
+      <div>
+        {{form.salary(placeholder='Salary')}}
+      </div>
+
+      <div>
+        <span>{{form.dateHired}}</span>
+        <span>{{form.birthday}}</span>
+      </div>
+
+      <div>
+        {{form.position}}
+      </div>
+
+      <div>
+        {{form.submit()}}
+      </div>
+    
+    </form>
+  </div>
+
 </div>
 
 <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>

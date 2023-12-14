@@ -19,7 +19,7 @@ def data(username):
     
     elif request.method == 'POST':
         data = request.get_json()
-        print("DATA:", data)
+        print("POSITION DATA:", data)
         if 'id' not in data:
             abort(400)
 
@@ -85,6 +85,12 @@ def employees(username):
         }
     
     elif request.method == 'POST':
+        data = request.get_json()
+        print("POSITION DATA:", data)
+        if 'id' not in data:
+            abort(400)
+
+        
         return
 
     elif request.method == 'PUT':
