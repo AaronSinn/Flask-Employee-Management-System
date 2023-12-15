@@ -59,3 +59,115 @@ td[data-column-id="edit"] > button{
     border-radius: 20px;
     padding: 0.5vh 1vw 0.5vh 1vw ;
 }
+
+.formContainer{
+    text-align: center;
+    display: flex;
+    width: 25vw;
+    justify-content: center;
+    margin-top: 4vh;
+    border: 2px solid var(--mainColour);
+    border-radius: 30px;
+    background-color: rgb(240, 240, 240);
+    font-family: 'DM Sans', sans-serif;
+}
+
+#formTitle{
+    margin-top: 1vh;
+    margin-bottom: 3vh;
+    color: var(--mainColour);
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+#firstNameInput{
+    width: 11vw;
+    border: 2px solid var(--mainColour);
+    border-radius: 30px;
+    padding: 1.5vh 1vw 1.5vh 1vw;
+    margin: 2vh 0vw 2vh 0vw;
+}
+
+#lastNameInput{
+    width: 11vw;
+    border: 2px solid var(--mainColour);
+    border-radius: 30px;
+    padding: 1.5vh 1vw 1.5vh 1vw;
+    margin: 2vh 0vw 2vh 0vw;
+}
+
+#emailInput{
+    width: 22vw;
+    border: 2px solid var(--mainColour);
+    border-radius: 30px;
+    padding: 1.5vh 1vw 1.5vh 1vw;
+    margin: 2vh 0vw 2vh 0vw;
+}
+
+#phoneNumberInput{
+    width: 22vw;
+    border: 2px solid var(--mainColour);
+    border-radius: 30px;
+    padding: 1.5vh 1vw 1.5vh 1vw;
+    margin: 2vh 0vw 2vh 0vw;
+}
+
+#salaryInput{
+    width: 22vw;
+    border: 2px solid var(--mainColour);
+    border-radius: 30px;
+    padding: 1.5vh 1vw 1.5vh 1vw;
+    margin: 2vh 0vw 2vh 0vw;
+}
+
+.dateHiredInputDiv{
+    width: 11vw;
+    float: left;
+    margin-top: 1.5vh;
+}
+
+.birthdayInputDiv{
+    width: 11vw;
+    float: right;
+    margin-top: 1.5vh;
+}
+
+#dateHiredInput{
+    width: 11vw;
+    border: 2px solid var(--mainColour);
+    border-radius: 30px;
+    padding: 1.5vh 1vw 1.5vh 1vw;
+    margin: 1vh 0vw 2vh 0vw;
+}
+
+#birthdayInput{
+    width: 11vw;
+    border: 2px solid var(--mainColour);
+    border-radius: 30px;
+    padding: 1.5vh 1vw 1.5vh 1vw;
+    margin: 1vh 0vw 2vh 0vw;
+}
+
+.clear { clear:both; }
+
+.positionInputDiv{
+    margin-top: 1vh;
+    display: block;
+}
+
+#positionSelect{
+    border: 2px solid var(--mainColour);
+    border-radius: 30px;
+    padding: 1vh 2vw 1vh 2vw;
+    margin: 1vh 0vw 2vh 0vw;
+}
+
+#submit{
+    border: 2px solid var(--mainColour);
+    border-radius: 10px;
+    margin: 3vh 0vw 1vh 0vw;
+    padding: 1.5vh 2vw 1.5vh 2vw;
+    font-size: 1em;
+    background-color: #198754;
+    color: white;
+}

@@ -30,7 +30,7 @@ td:hover{
     background-color: rgb(216, 216, 216);
 }
 
-td[data-column-id="delete"] > button{
+td[data-column-id="delete"] > button{ 
     background-color: rgb(247, 38, 38);
     color: white;
     font-family: 'DM Sans', sans-serif;
@@ -72,6 +72,11 @@ td[data-column-id="edit"] > button{
     font-family: 'DM Sans', sans-serif;
 }
 
+h6{
+    width: 4vw
+
+}
+
 #formTitle{
     margin-top: 1vh;
     color: var(--mainColour);
@@ -82,7 +87,7 @@ td[data-column-id="edit"] > button{
 #titleInput{
     border: 2px solid var(--mainColour);
     border-radius: 30px;
-    padding: 1vh 1vw 1vh 1vw;
+    padding: 1.5vh 1vw 1.5vh 1vw;
     margin: 2vh 0vw 2vh 0vw;
     width: 23vw;
 }
@@ -90,7 +95,7 @@ td[data-column-id="edit"] > button{
 #descriptionInput{
     border: 2px solid var(--mainColour);
     border-radius: 30px;
-    padding: 1vh 1vw 10vh 1vw;
+    padding: 2vh 1vw 10vh 1vw;
     margin: 2vh 0vw 2vh 0vw;
     width: 23vw;
 }
@@ -98,7 +103,7 @@ td[data-column-id="edit"] > button{
 #basePayInput{
     border: 2px solid var(--mainColour);
     border-radius: 30px;
-    padding: 1vh 1vw 1vh 1vw;
+    padding: 1.5vh 1vw 1.5vh 1vw;
     margin: 2vh 0vw 2vh 0vw;
     width: 23vw;
 }
@@ -107,7 +112,7 @@ td[data-column-id="edit"] > button{
     border: 2px solid var(--mainColour);
     border-radius: 10px;
     margin: 1vh 0vw 1vh 0vw;
-    padding: 1vh 2vw 1vh 2vw;
+    padding: 1.5vh 2vw 1.5vh 2vw;
     font-size: 1em;
     background-color: #198754;
     color: white;

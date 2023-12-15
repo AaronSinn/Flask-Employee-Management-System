@@ -21,10 +21,10 @@
       {{ form.hidden_tag() }}
 
       <div>
-        <h2>Add Employee</h2>
+        <h2 id="formTitle">Add Employee</h2>
       </div>
 
-      <div>
+      <div class="nameInputDiv">
         <span>{{form.firstName(placeholder='First Name')}}</span>
         <span>{{form.lastName(placeholder='Last Name')}}</span>
       </div>
@@ -41,12 +41,21 @@
         {{form.salary(placeholder='Salary')}}
       </div>
 
-      <div>
-        <span>{{form.dateHired}}</span>
-        <span>{{form.birthday}}</span>
+
+      <div class="dateHiredInputDiv">
+        <h6>Date Hired</h6>
+        {{form.dateHired}}
+      </div>
+      
+      <div class="birthdayInputDiv">
+        <h6>Birthday</h6>
+        {{form.birthday}}
       </div>
 
-      <div>
+      <div class="clear"></div> <!--Stops position Div from over lapping with the dates -->
+   
+      <div class="positionInputDiv">
+        <h6>Position</h6>
         {{form.position}}
       </div>
 

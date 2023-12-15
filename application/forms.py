@@ -35,7 +35,7 @@ class EmployeeForm(FlaskForm):
     phoneNumber = StringField('Phone Number', validators=[DataRequired()], id='phoneNumberInput')
     salary = IntegerField('Salary', validators=[DataRequired()], id='salaryInput')
     dateHired = DateField('Date Hired', validators=[DataRequired()], format='%Y-%m-%d', id='dateHiredInput')
-    birthday = DateField('Date Hired', validators=[DataRequired()], format='%Y-%m-%d', id='brithdayInput')
+    birthday = DateField('Date Hired', validators=[DataRequired()], format='%Y-%m-%d', id='birthdayInput')
     submit = SubmitField('Add Employee')
 
 
