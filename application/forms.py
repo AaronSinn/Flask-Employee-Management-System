@@ -30,12 +30,12 @@ class EmployeeForm(FlaskForm):
 
     firstName = StringField('FirstName', validators=[DataRequired()], id='firstNameInput')
     lastName = StringField('LastName', validators=[DataRequired()], id='lastNameInput')
-    position = SelectField('Position', choices=[],validators=[DataRequired()], id='positionSelect')
     email = StringField('Email', validators=[DataRequired()], id='emailInput')
     phoneNumber = StringField('Phone Number', validators=[DataRequired()], id='phoneNumberInput')
     salary = IntegerField('Salary', validators=[DataRequired()], id='salaryInput')
     dateHired = DateField('Date Hired', validators=[DataRequired()], format='%Y-%m-%d', id='dateHiredInput')
     birthday = DateField('Date Hired', validators=[DataRequired()], format='%Y-%m-%d', id='birthdayInput')
+    position = SelectField('Position', choices=[],validators=[DataRequired()], id='positionSelect')
     submit = SubmitField('Add Employee')
 
 

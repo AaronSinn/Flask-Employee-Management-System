@@ -17,7 +17,7 @@
   </div>
 
   <div class="formContainer">
-    <form action="", method="PUT", novalidate, id="form">
+    <form action="", novalidate, id="form">
       {{ form.hidden_tag() }}
 
       <div>
@@ -144,7 +144,7 @@
           if (savedValue !== ev.target.textContent) {
             // console.log(savedValue, ev.target.textContent);
             fetch('/{{username}}/employees/data', {
-              method: 'POST',
+              method: 'PUT',
               headers: {'Content-Type': 'application/json'},
               body: JSON.stringify({
                 id: ev.target.dataset.elementId,
@@ -158,17 +158,27 @@
 
     //I hate this hack so much. Flask-wtf wants to route to the api and leave the page so now I gotta do this
     document.getElementById("submit").addEventListener("click", () =>{
-      var titleInput = document.getElementById('titleInput');
-      var descriptionInput = document.getElementById('descriptionInput');
-      var basePayInput = document.getElementById('basePayInput');
+      var firstNameInput = document.getElementById('firstNameInput');
+      var lastNameInput = document.getElementById('lastNameInput');
+      var emailInput = document.getElementById('emailInput');
+      var phoneNumberInput = document.getElementById('phoneNumberInput');
+      var descriptionSalaryInput = document.getElementById('salaryInput');
+      var dateHiredInput = document.getElementById('dateHiredInput');
+      var birthdayInput = document.getElementById('birthdayInput');
+      var positionSelect = document.getElementById('positionSelect');
 
       fetch('/{{username}}/employees/data', {
-        method: 'PUT',
+        method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-          title: titleInput.value,
-          description: descriptionInput.value,
-          basePay: basePayInput.value
+          firstName: firstNameInput.value,
+          lastName: lastNameInput.value,
+          email: emailInput.value,
+          phoneNumber: phoneNumberInput.value,
+          salary: salaryInput.value,
+          dateHired: dateHiredInput.value,
+          birthday: birthdayInput.value,
+          position: positionSelect.value
         }),
       });
   })

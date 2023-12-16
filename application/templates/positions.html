@@ -18,7 +18,7 @@
   </div>
 
   <div class="formContainer">
-    <form action="", method="PUT", novalidate, id="form">
+    <form action="", novalidate, id="form">
       {{ form.hidden_tag() }}
       
       <div>
@@ -71,6 +71,7 @@
             { id: 'delete', name: 'Delete', sort: false, width: 200,formatter: (cell, row) => {
                 return h('button', {onClick: () =>{
                   console.log(row.cells[0]);
+                  //DELETE
                   fetch('/{{username}}/positions/data', {
                     method: 'DELETE',
                     headers: {'Content-Type': 'application/json'},
@@ -83,6 +84,7 @@
                 }
             }
         ], 
+        //GET
         server: {
           url: '/{{username}}/positions/data',
           method: 'GET',
@@ -117,7 +119,7 @@
           if (savedValue !== ev.target.textContent) {
             // console.log(savedValue, ev.target.textContent);
             fetch('/{{username}}/positions/data', {
-              method: 'POST',
+              method: 'PUT',
               headers: {'Content-Type': 'application/json'},
               body: JSON.stringify({
                 id: ev.target.dataset.elementId,
@@ -130,13 +132,14 @@
     });
 
     //I hate this hack so much. Flask-wtf wants to route to the api and leave the page so now I gotta do this
+    //POST
     document.getElementById("submit").addEventListener("click", () =>{
       var titleInput = document.getElementById('titleInput');
       var descriptionInput = document.getElementById('descriptionInput');
       var basePayInput = document.getElementById('basePayInput');
 
       fetch('/{{username}}/positions/data', {
-        method: 'PUT',
+        method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
           title: titleInput.value,
