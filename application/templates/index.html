@@ -1,6 +1,6 @@
 {% extends 'auth/logged_out_base.html' %}
 
-{% block css %}<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/index.css') }}">{% endblock %}
+{% block static %}<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/index.css') }}">{% endblock %}
 
 {% block title %} Welcome to SquadSync {% endblock %}
 

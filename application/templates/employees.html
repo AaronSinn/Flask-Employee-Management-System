@@ -2,9 +2,15 @@
 
 {% block title %}Employees{% endblock %}
 
-{% block css %} 
+{% block static %} 
     <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/employees.css') }}">
+
+    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+    <script type="module" src="{{ url_for('static',filename='scripts/employees/employees-grid.js') }}" id="employees-grid" data-username="{{username}}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='scripts/employees/employees-chart.js') }}" id="employees-chart" data-username="{{username}}"></script>
 {% endblock %}
 
 {% block content %}
@@ -16,172 +22,63 @@
     <div id="table"></div>
   </div>
 
-  <div class="formContainer">
-    <form action="", novalidate, id="form">
-      {{ form.hidden_tag() }}
-
-      <div>
-        <h2 id="formTitle">Add Employee</h2>
-      </div>
-
-      <div class="nameInputDiv">
-        <span>{{form.firstName(placeholder='First Name')}}</span>
-        <span>{{form.lastName(placeholder='Last Name')}}</span>
-      </div>
-
-      <div>
-        {{form.email(placeholder='Email')}}
-      </div>
-
-      <div>
-        {{form.phoneNumber(placeholder='Phone Number')}}
-      </div>
-
-      <div>
-        {{form.salary(placeholder='Salary')}}
-      </div>
-
-
-      <div class="dateHiredInputDiv">
-        <h6>Date Hired</h6>
-        {{form.dateHired}}
-      </div>
+  <div class="chartAndFromContainer">
+    <div class="formContainer">
+      <form action="", novalidate, id="form">
+        {{ form.hidden_tag() }}
+  
+        <div>
+          <h2 id="formTitle">Add Employee</h2>
+        </div>
+  
+        <div class="nameInputDiv">
+          <span>{{form.firstName(placeholder='First Name')}}</span>
+          <span>{{form.lastName(placeholder='Last Name')}}</span>
+        </div>
+  
+        <div>
+          {{form.email(placeholder='Email')}}
+        </div>
+  
+        <div>
+          {{form.phoneNumber(placeholder='Phone Number')}}
+        </div>
+  
+        <div>
+          {{form.salary(placeholder='Salary')}}
+        </div>
+  
+  
+        <div class="dateHiredInputDiv">
+          <h6>Date Hired</h6>
+          {{form.dateHired}}
+        </div>
+        
+        <div class="birthdayInputDiv">
+          <h6>Birthday</h6>
+          {{form.birthday}}
+        </div>
+  
+        <div class="clear"></div> <!--Stops position Div from over lapping with the dates -->
+     
+        <div class="positionInputDiv">
+          <h6>Position</h6>
+          {{form.position}}
+        </div>
+  
+        <div>
+          {{form.submit()}}
+        </div>
       
-      <div class="birthdayInputDiv">
-        <h6>Birthday</h6>
-        {{form.birthday}}
-      </div>
-
-      <div class="clear"></div> <!--Stops position Div from over lapping with the dates -->
-   
-      <div class="positionInputDiv">
-        <h6>Position</h6>
-        {{form.position}}
-      </div>
-
-      <div>
-        {{form.submit()}}
-      </div>
-    
-    </form>
+      </form>
+    </div>
+  
+    <div class="chartsContainer">
+      <canvas id="myChart"></canvas>
+    </div>
+  
   </div>
-
+  
 </div>
-
-<script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
-<script type="module">
-    import { Grid, h } from "https://unpkg.com/gridjs?module";
-
-    const editableCellAttributes = (data, row, col) => {
-          if (row) {
-            // return {contentEditable: 'true', 'data-element-id': row.cells[0].data};
-            return {contentEditable: 'true', 'data-element-id': row.cells[0].data};
-          }
-          else {
-            return {};
-          }
-      };
-
-    new gridjs.Grid({
-        columns: [
-            { id: 'id', sort: false, 'hidden': true},
-            { id: 'firstName', name: 'First Name', resizable: true,'attributes': editableCellAttributes},
-            { id: 'lastName', name: 'Last Name', resizable: true,'attributes': editableCellAttributes},
-            { id: 'position', name: 'Position', resizable: true,'attributes': editableCellAttributes},
-            { id: 'email', name: 'Email', resizable: true,'attributes': editableCellAttributes},
-            { id: 'phoneNumber', name: 'Phone Number', resizable: true,'attributes': editableCellAttributes},
-            { id: 'salary', name: 'Salary', formatter: (cell) => `$${cell}`, width: 150, resizable: true,'attributes': editableCellAttributes},
-            { id: 'dateHired', name: 'Date Hired', width: 170, resizable: true,'attributes': editableCellAttributes},
-            { id: 'birthday', name: 'Birthday', width: 170, resizable: true,'attributes': editableCellAttributes},
-            
-            //used to delete rows
-            { id: 'delete', name: 'Delete', sort: false, width: 150, formatter: (cell, row) => {
-                return h('button', {onClick: () =>{
-                  console.log(row.cells[0]);
-                  fetch('/{{username}}/employees/data', {
-                    method: 'DELETE',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                      id: row.cells[0].data
-                    }),
-                  });
-                  location.reload() //refreshes page to display changes
-                }}, 'Delete');
-                }
-            }
-        ], 
-        server: {
-          url: '/{{username}}/employees/data',
-          method: 'GET',
-          then: results => results.data,
-          total: results => results.total,
-        },
-        search: true,
-        sort: true,
-        pagination: true,
-        style: {
-            th: {
-                'background-color': '#198754',
-                'color': 'white',
-                'text-align': 'center'
-            },
-            td: {
-            'text-align': 'center'
-            }
-        }
-    }).render(document.getElementById('table'));
-
-    let savedValue;
-
-    table.addEventListener('focusin', ev => {
-        if (ev.target.tagName === 'TD') {
-          savedValue = ev.target.textContent;
-        }
-    });
-
-    table.addEventListener('focusout', ev => {
-        if (ev.target.tagName === 'TD') {
-          if (savedValue !== ev.target.textContent) {
-            // console.log(savedValue, ev.target.textContent);
-            fetch('/{{username}}/employees/data', {
-              method: 'PUT',
-              headers: {'Content-Type': 'application/json'},
-              body: JSON.stringify({
-                id: ev.target.dataset.elementId,
-                [ev.target.dataset.columnId]: ev.target.textContent
-              }),
-            });
-          }
-          savedValue = undefined;
-        }
-    });
-
-    //I hate this hack so much. Flask-wtf wants to route to the api and leave the page so now I gotta do this
-    document.getElementById("submit").addEventListener("click", () =>{
-      var firstNameInput = document.getElementById('firstNameInput');
-      var lastNameInput = document.getElementById('lastNameInput');
-      var emailInput = document.getElementById('emailInput');
-      var phoneNumberInput = document.getElementById('phoneNumberInput');
-      var descriptionSalaryInput = document.getElementById('salaryInput');
-      var dateHiredInput = document.getElementById('dateHiredInput');
-      var birthdayInput = document.getElementById('birthdayInput');
-      var positionSelect = document.getElementById('positionSelect');
-
-      fetch('/{{username}}/employees/data', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          firstName: firstNameInput.value,
-          lastName: lastNameInput.value,
-          email: emailInput.value,
-          phoneNumber: phoneNumberInput.value,
-          salary: salaryInput.value,
-          dateHired: dateHiredInput.value,
-          birthday: birthdayInput.value,
-          position: positionSelect.value
-        }),
-      });
-  })
-</script>
 
 {% endblock %}

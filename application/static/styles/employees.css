@@ -65,7 +65,6 @@ td[data-column-id="edit"] > button{
     display: flex;
     width: 25vw;
     justify-content: center;
-    margin-top: 4vh;
     border: 2px solid var(--mainColour);
     border-radius: 30px;
     background-color: rgb(240, 240, 240);
@@ -170,4 +169,16 @@ td[data-column-id="edit"] > button{
     font-size: 1em;
     background-color: #198754;
     color: white;
+}
+
+.chartAndFromContainer{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5vh;
+}
+
+.chartsContainer{
+    width: 50vw;
+    height: 100vh;
+    margin-right: 6vw;
 }

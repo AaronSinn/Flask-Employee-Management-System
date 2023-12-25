@@ -1,54 +1,8 @@
-{% extends 'base.html' %}
+import { Grid, h } from "https://unpkg.com/gridjs?module";
 
-{% block title %}Positions{% endblock %}
+document.addEventListener('DOMContentLoaded', () => {
 
-{% block static %} 
-    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ url_for('static',filename='styles/positions.css') }}">
-{% endblock %}
-
-{% block content %}
-
-<h1 id="title">Positions</h1>
-<!-- <hr style="width: 83vw; margin-bottom: 2vh;"> -->
-
-<div class="mainContent">
-  <div class="tableContainer">
-    <div id="table"></div>
-  </div>
-
-  <div class="formContainer">
-    <form action="", novalidate, id="form">
-      {{ form.hidden_tag() }}
-      
-      <div>
-        <h2 id="formTitle">Add Position</h2>
-      </div>
-
-      <div class="titleDiv">
-        {{form.title(placeholder='Title')}}
-      </div>
-
-      <div class="basePayDiv">
-        {{form.basePay(placeholder='Base Pay')}}
-      </div>
-
-      <div class="descriptionDiv">
-        {{form.description(placeholder='Description')}}
-      </div>
-
-      <div class="submitDiv">
-        {{form.submit()}}
-      </div>
-
-    </form>
-    <!-- <button type="button" class="btn btn-success btn-lg" id="addPosButton"> <i class="fa-solid fa-plus"></i> Add Positions</i></button> -->
-  </div>
-</div>
-
-<script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
-<script type="module">
-    import { Grid, h } from "https://unpkg.com/gridjs?module";
+    var username = document.getElementById('employees-grid').getAttribute('data-username');
 
     const editableCellAttributes = (data, row, col) => {
           if (row) {
@@ -63,16 +17,20 @@
     new gridjs.Grid({
         columns: [
             { id: 'id', sort: false, 'hidden': true},
-            { id: 'title', name: 'Title', resizable: true,'attributes': editableCellAttributes},
-            { id: 'description', name: 'Description', sort: false, resizable: true,'attributes': editableCellAttributes},
-            { id: 'basePay', name: 'Base Pay', formatter: (cell) => `$${cell}`, width: 200,resizable: true,'attributes': editableCellAttributes},
+            { id: 'firstName', name: 'First Name', resizable: true,'attributes': editableCellAttributes},
+            { id: 'lastName', name: 'Last Name', resizable: true,'attributes': editableCellAttributes},
+            { id: 'position', name: 'Position', resizable: true,'attributes': editableCellAttributes},
+            { id: 'email', name: 'Email', resizable: true,'attributes': editableCellAttributes},
+            { id: 'phoneNumber', name: 'Phone Number', resizable: true,'attributes': editableCellAttributes},
+            { id: 'salary', name: 'Salary', formatter: (cell) => `$${cell}`, width: 150, resizable: true,'attributes': editableCellAttributes},
+            { id: 'dateHired', name: 'Date Hired', width: 170, resizable: true,'attributes': editableCellAttributes},
+            { id: 'birthday', name: 'Birthday', width: 170, resizable: true,'attributes': editableCellAttributes},
             
             //used to delete rows
-            { id: 'delete', name: 'Delete', sort: false, width: 200,formatter: (cell, row) => {
+            { id: 'delete', name: 'Delete', sort: false, width: 150, formatter: (cell, row) => {
                 return h('button', {onClick: () =>{
                   console.log(row.cells[0]);
-                  //DELETE
-                  fetch('/{{username}}/positions/data', {
+                  fetch(`/${username}/employees/data`, {
                     method: 'DELETE',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
@@ -84,9 +42,8 @@
                 }
             }
         ], 
-        //GET
         server: {
-          url: '/{{username}}/positions/data',
+          url: `/${username}/employees/data`,
           method: 'GET',
           then: results => results.data,
           total: results => results.total,
@@ -118,7 +75,7 @@
         if (ev.target.tagName === 'TD') {
           if (savedValue !== ev.target.textContent) {
             // console.log(savedValue, ev.target.textContent);
-            fetch('/{{username}}/positions/data', {
+            fetch(`/${username}/employees/data`, {
               method: 'PUT',
               headers: {'Content-Type': 'application/json'},
               body: JSON.stringify({
@@ -132,21 +89,29 @@
     });
 
     //I hate this hack so much. Flask-wtf wants to route to the api and leave the page so now I gotta do this
-    //POST
     document.getElementById("submit").addEventListener("click", () =>{
-      var titleInput = document.getElementById('titleInput');
-      var descriptionInput = document.getElementById('descriptionInput');
-      var basePayInput = document.getElementById('basePayInput');
+      var firstNameInput = document.getElementById('firstNameInput');
+      var lastNameInput = document.getElementById('lastNameInput');
+      var emailInput = document.getElementById('emailInput');
+      var phoneNumberInput = document.getElementById('phoneNumberInput');
+      var salaryInput = document.getElementById('salaryInput');
+      var dateHiredInput = document.getElementById('dateHiredInput');
+      var birthdayInput = document.getElementById('birthdayInput');
+      var positionSelect = document.getElementById('positionSelect');
 
-      fetch('/{{username}}/positions/data', {
+      fetch(`/${username}/employees/data`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-          title: titleInput.value,
-          description: descriptionInput.value,
-          basePay: basePayInput.value
+          firstName: firstNameInput.value,
+          lastName: lastNameInput.value,
+          email: emailInput.value,
+          phoneNumber: phoneNumberInput.value,
+          salary: salaryInput.value,
+          dateHired: dateHiredInput.value,
+          birthday: birthdayInput.value,
+          position: positionSelect.value
         }),
       });
   })
-</script>
-{% endblock %}
+});
