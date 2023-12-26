@@ -9,6 +9,7 @@ class Admin(db.Model, UserMixin):
     password = db.Column(db.String(50), unique=True, nullable=False)
     positions = db.relationship('Position', backref='admin')
     employees = db.relationship('Employee', backref='admin')
+    departments = db.relationship('Department', backref='admin')
     
 
 class Employee(db.Model):
@@ -21,7 +22,9 @@ class Employee(db.Model):
     dateHired = db.Column(db.Date, nullable=False)
     birthday = db.Column(db.Date, nullable=True)
     position_id = db.Column(db.Integer, db.ForeignKey('position.id'))
+    department_id = db.Column(db.Integer, db.ForeignKey('department.id'))
     admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'))
+    
 
     def to_dict(self):
         position = Position.query.filter_by(id=self.position_id).first()
@@ -49,7 +52,7 @@ class Position(db.Model):
     description = db.Column(db.String(175), nullable=False)
     basePay = db.Column(db.Integer)
     admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'))
-    employees = db.relationship('Employee', backref='employee')
+    employees = db.relationship('Employee', backref='position')
 
     def to_dict(self):
         return {
@@ -59,3 +62,11 @@ class Position(db.Model):
             'basePay': self.basePay,
             'admin_id': self.admin_id
         }
+    
+class Department(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String(50),nullable=False)
+    description = db.Column(db.String(175), nullable=False)
+    employeeCount = db.Column(db.Integer)
+    admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'))
+    employees = db.relationship('Employee', backref='department')

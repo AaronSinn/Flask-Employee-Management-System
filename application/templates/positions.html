@@ -5,148 +5,59 @@
 {% block static %} 
     <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/positions.css') }}">
+    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+    <script type="module" src="{{ url_for('static',filename='scripts/positions/positions-grid.js') }}" id="positions-grid" data-username="{{username}}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='scripts/positions/positions-chart.js') }}" id="positions-chart" data-username="{{username}}"></script>
 {% endblock %}
 
 {% block content %}
 
-<h1 id="title">Positions</h1>
-<!-- <hr style="width: 83vw; margin-bottom: 2vh;"> -->
-
 <div class="mainContent">
+
+  <h1 id="title">Positions</h1>
+
   <div class="tableContainer">
     <div id="table"></div>
   </div>
 
-  <div class="formContainer">
-    <form action="", novalidate, id="form">
-      {{ form.hidden_tag() }}
-      
-      <div>
-        <h2 id="formTitle">Add Position</h2>
-      </div>
+  <div class="chartAndFromContainer">
+    <div class="formContainer">
+      <form action="", novalidate, id="form">
+        {{ form.hidden_tag() }}
+        
+        <div>
+          <h2 id="formTitle">Add Position</h2>
+        </div>
+  
+        <div class="titleDiv">
+          {{form.title(placeholder='Title')}}
+        </div>
+  
+        <div class="basePayDiv">
+          {{form.basePay(placeholder='Base Pay')}}
+        </div>
+  
+        <div class="descriptionDiv">
+          {{form.description(placeholder='Description')}}
+        </div>
+  
+        <div class="submitDiv">
+          {{form.submit()}}
+        </div>
+  
+      </form>
+    </div>
+  
+    <div class="chartsContainer">
+      <h2 id="chartTitle">Base Pay</h2>
+      <canvas id="myChart"></canvas>
+    </div>
 
-      <div class="titleDiv">
-        {{form.title(placeholder='Title')}}
-      </div>
-
-      <div class="basePayDiv">
-        {{form.basePay(placeholder='Base Pay')}}
-      </div>
-
-      <div class="descriptionDiv">
-        {{form.description(placeholder='Description')}}
-      </div>
-
-      <div class="submitDiv">
-        {{form.submit()}}
-      </div>
-
-    </form>
-    <!-- <button type="button" class="btn btn-success btn-lg" id="addPosButton"> <i class="fa-solid fa-plus"></i> Add Positions</i></button> -->
   </div>
+
+  <footer id="footer"><p>SquadSync @2023</p></footer>
+
 </div>
-
-<script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
-<script type="module">
-    import { Grid, h } from "https://unpkg.com/gridjs?module";
-
-    const editableCellAttributes = (data, row, col) => {
-          if (row) {
-            // return {contentEditable: 'true', 'data-element-id': row.cells[0].data};
-            return {contentEditable: 'true', 'data-element-id': row.cells[0].data};
-          }
-          else {
-            return {};
-          }
-      };
-
-    new gridjs.Grid({
-        columns: [
-            { id: 'id', sort: false, 'hidden': true},
-            { id: 'title', name: 'Title', resizable: true,'attributes': editableCellAttributes},
-            { id: 'description', name: 'Description', sort: false, resizable: true,'attributes': editableCellAttributes},
-            { id: 'basePay', name: 'Base Pay', formatter: (cell) => `$${cell}`, width: 200,resizable: true,'attributes': editableCellAttributes},
-            
-            //used to delete rows
-            { id: 'delete', name: 'Delete', sort: false, width: 200,formatter: (cell, row) => {
-                return h('button', {onClick: () =>{
-                  console.log(row.cells[0]);
-                  //DELETE
-                  fetch('/{{username}}/positions/data', {
-                    method: 'DELETE',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                      id: row.cells[0].data
-                    }),
-                  });
-                  location.reload() //refreshes page to display changes
-                }}, 'Delete');
-                }
-            }
-        ], 
-        //GET
-        server: {
-          url: '/{{username}}/positions/data',
-          method: 'GET',
-          then: results => results.data,
-          total: results => results.total,
-        },
-        search: true,
-        sort: true,
-        pagination: true,
-        style: {
-            th: {
-                'background-color': '#198754',
-                'color': 'white',
-                'text-align': 'center'
-            },
-            td: {
-            'text-align': 'center'
-            }
-        }
-    }).render(document.getElementById('table'));
-
-    let savedValue;
-
-    table.addEventListener('focusin', ev => {
-        if (ev.target.tagName === 'TD') {
-          savedValue = ev.target.textContent;
-        }
-    });
-
-    table.addEventListener('focusout', ev => {
-        if (ev.target.tagName === 'TD') {
-          if (savedValue !== ev.target.textContent) {
-            // console.log(savedValue, ev.target.textContent);
-            fetch('/{{username}}/positions/data', {
-              method: 'PUT',
-              headers: {'Content-Type': 'application/json'},
-              body: JSON.stringify({
-                id: ev.target.dataset.elementId,
-                [ev.target.dataset.columnId]: ev.target.textContent
-              }),
-            });
-          }
-          savedValue = undefined;
-        }
-    });
-
-    //I hate this hack so much. Flask-wtf wants to route to the api and leave the page so now I gotta do this
-    //POST
-    document.getElementById("submit").addEventListener("click", () =>{
-      var titleInput = document.getElementById('titleInput');
-      var descriptionInput = document.getElementById('descriptionInput');
-      var basePayInput = document.getElementById('basePayInput');
-
-      fetch('/{{username}}/positions/data', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          title: titleInput.value,
-          description: descriptionInput.value,
-          basePay: basePayInput.value
-        }),
-      });
-  })
-</script>
 {% endblock %}

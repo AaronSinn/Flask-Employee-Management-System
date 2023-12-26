@@ -2,7 +2,7 @@ import { Grid, h } from "https://unpkg.com/gridjs?module";
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    var username = document.getElementById('employees-grid').getAttribute('data-username');
+    var username = document.getElementById('positions-grid').getAttribute('data-username');
 
     const editableCellAttributes = (data, row, col) => {
           if (row) {
@@ -17,20 +17,16 @@ document.addEventListener('DOMContentLoaded', () => {
     new gridjs.Grid({
         columns: [
             { id: 'id', sort: false, 'hidden': true},
-            { id: 'firstName', name: 'First Name', resizable: true,'attributes': editableCellAttributes},
-            { id: 'lastName', name: 'Last Name', resizable: true,'attributes': editableCellAttributes},
-            { id: 'position', name: 'Position', resizable: true,'attributes': editableCellAttributes},
-            { id: 'email', name: 'Email', resizable: true,'attributes': editableCellAttributes},
-            { id: 'phoneNumber', name: 'Phone Number', resizable: true,'attributes': editableCellAttributes},
-            { id: 'salary', name: 'Salary', formatter: (cell) => `$${cell}`, width: 150, resizable: true,'attributes': editableCellAttributes},
-            { id: 'dateHired', name: 'Date Hired', width: 170, resizable: true,'attributes': editableCellAttributes},
-            { id: 'birthday', name: 'Birthday', width: 170, resizable: true,'attributes': editableCellAttributes},
+            { id: 'title', name: 'Title', resizable: true,'attributes': editableCellAttributes},
+            { id: 'description', name: 'Description', sort: false, resizable: true,'attributes': editableCellAttributes},
+            { id: 'basePay', name: 'Base Pay', formatter: (cell) => `$${cell}`, width: 200,resizable: true,'attributes': editableCellAttributes},
             
             //used to delete rows
-            { id: 'delete', name: 'Delete', sort: false, width: 150, formatter: (cell, row) => {
+            { id: 'delete', name: 'Delete', sort: false, width: 200,formatter: (cell, row) => {
                 return h('button', {onClick: () =>{
                   console.log(row.cells[0]);
-                  fetch(`/${username}/employees/data`, {
+                  //DELETE
+                  fetch(`/${username}/positions/data`, {
                     method: 'DELETE',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
@@ -42,8 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         ], 
+        //GET
         server: {
-          url: `/${username}/employees/data`,
+          url:`/${username}/positions/data`,
           method: 'GET',
           then: results => results.data,
           total: results => results.total,
@@ -75,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (ev.target.tagName === 'TD') {
           if (savedValue !== ev.target.textContent) {
             // console.log(savedValue, ev.target.textContent);
-            fetch(`/${username}/employees/data`, {
+            fetch(`/${username}/positions/data`, {
               method: 'PUT',
               headers: {'Content-Type': 'application/json'},
               body: JSON.stringify({
@@ -85,35 +82,25 @@ document.addEventListener('DOMContentLoaded', () => {
             });
           }
           savedValue = undefined;
+          location.reload() //refreshes page to display changes
         }
-        location.reload() //refreshes page to display changes T
-                          //TODO: Update the chart by passing the new data to it rather than reloading
     });
 
     //I hate this hack so much. Flask-wtf wants to route to the api and leave the page so now I gotta do this
+    //POST
     document.getElementById("submit").addEventListener("click", () =>{
-      var firstNameInput = document.getElementById('firstNameInput');
-      var lastNameInput = document.getElementById('lastNameInput');
-      var emailInput = document.getElementById('emailInput');
-      var phoneNumberInput = document.getElementById('phoneNumberInput');
-      var salaryInput = document.getElementById('salaryInput');
-      var dateHiredInput = document.getElementById('dateHiredInput');
-      var birthdayInput = document.getElementById('birthdayInput');
-      var positionSelect = document.getElementById('positionSelect');
+      var titleInput = document.getElementById('titleInput');
+      var descriptionInput = document.getElementById('descriptionInput');
+      var basePayInput = document.getElementById('basePayInput');
 
-      fetch(`/${username}/employees/data`, {
+      fetch(`/${username}/positions/data`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-          firstName: firstNameInput.value,
-          lastName: lastNameInput.value,
-          email: emailInput.value,
-          phoneNumber: phoneNumberInput.value,
-          salary: salaryInput.value,
-          dateHired: dateHiredInput.value,
-          birthday: birthdayInput.value,
-          position: positionSelect.value
+          title: titleInput.value,
+          description: descriptionInput.value,
+          basePay: basePayInput.value
         }),
       });
   })
-});
+})
