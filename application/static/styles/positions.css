@@ -2,16 +2,16 @@
     --mainColour: #198754;
 }
 
+.mainContent{
+    margin-left: 13vw;
+}
+
 #title{
     text-align: center;
-    color: #198754;
+    color: var(--mainColour);
     margin-bottom: 1vh;
     text-decoration: underline;
     font-size: 5vh;
-}
-
-.mainContent{
-    margin-left: 13vw;
 }
 
 .tableContainer{
@@ -61,12 +61,18 @@ td[data-column-id="edit"] > button{
     padding: 0.5vh 1vw 0.5vh 1vw ;
 }
 
+.chartAndFromContainer{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5vh;
+}
+
 .formContainer{
     text-align: center;
     display: flex;
     width: 25vw;
     justify-content: center;
-    margin-top: 4vh;
+    /* margin-top: 4vh; */
     border: 2px solid var(--mainColour);
     border-radius: 30px;
     background-color: rgb(240, 240, 240);
@@ -111,17 +117,11 @@ h6{
 #submit{
     border: 2px solid var(--mainColour);
     border-radius: 10px;
-    margin: 1vh 0vw 1vh 0vw;
+    margin: 2vh 0vw 1vh 0vw;
     padding: 1.5vh 2vw 1.5vh 2vw;
     font-size: 1em;
     background-color: #198754;
     color: white;
-}
-
-.chartAndFromContainer{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5vh;
 }
 
 .chartsContainer{

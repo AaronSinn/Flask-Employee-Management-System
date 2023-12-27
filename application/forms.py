@@ -36,7 +36,10 @@ class EmployeeForm(FlaskForm):
     dateHired = DateField('Date Hired', validators=[DataRequired()], format='%Y-%m-%d', id='dateHiredInput')
     birthday = DateField('Date Hired', validators=[DataRequired()], format='%Y-%m-%d', id='birthdayInput')
     position = SelectField('Position', choices=[],validators=[DataRequired()], id='positionSelect')
+    department = SelectField('Department', choices=[],validators=[DataRequired()], id='departmentSelect')
     submit = SubmitField('Add Employee')
 
-
-
+class DepartmentForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()], id='titleInput')
+    description = StringField('Description', validators=[DataRequired()], id='descriptionInput')
+    submit = SubmitField('Add Department')

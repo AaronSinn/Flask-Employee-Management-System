@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, url_for, redirect
 from flask_login import login_required, current_user
 from datetime import datetime
-from .forms import PositionForm, EmployeeForm
-from .models import Admin, Position, Employee
+from .forms import PositionForm, EmployeeForm, DepartmentForm
+from .models import Admin, Position, Employee, Department
 from . import db
 
 
@@ -37,30 +37,28 @@ def positions(username):
 @views.route('/<username>/employees')
 def employees(username):
 
-    # Obj1 = datetime(year=2020, month=5, day=23)
-    # hireDate = Obj1.date() 
-    # Obj2 = datetime(year=2003, month=7, day=13)
-    # birthday = Obj2.date()
-
-    # position = Position.query.filter_by(title='test').first()
-    # if position:
-    #     position_id = position.id
-
-    # new_employee = Employee(firstName='Carl', lastName='Grimes', email='carl.grimes@me.com', phoneNumber='226-757-0160', salary=80000, dateHired=hireDate, birthday=birthday, position_id=position_id,admin_id=current_user.id)
-    # db.session.add(new_employee)
-    # db.session.commit()
-
     positions = Position.query.filter_by(admin_id=current_user.id).all()
-
     positionList = []
     for position in positions:
         positionList.append((position.id, position.title))
 
-    # print("Position List:", positionList)
-
+    departments = Department.query.filter_by(admin_id=current_user.id).all()
+    departmentList = []
+    for department in departments:
+        departmentList.append((department.id, department.title))
+    
     form = EmployeeForm()
+    form.department.choices = departmentList
     form.position.choices = positionList
 
     return render_template('employees.html', name=current_user.firstName + " " + current_user.lastName, username=username, form=form)
+
+@login_required
+@views.route('/<username>/departments')
+def departments(username):
+
+    form = DepartmentForm()
+
+    return render_template('departments.html', name=current_user.firstName + " " + current_user.lastName, username=username, form=form)
 
 

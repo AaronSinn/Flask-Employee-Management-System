@@ -2,7 +2,7 @@ import { Grid, h } from "https://unpkg.com/gridjs?module";
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    var username = document.getElementById('positions-grid').getAttribute('data-username');
+    var username = document.getElementById('departments-grid').getAttribute('data-username');
 
     const editableCellAttributes = (data, row, col) => {
           if (row) {
@@ -17,16 +17,15 @@ document.addEventListener('DOMContentLoaded', () => {
     new gridjs.Grid({
         columns: [
             { id: 'id', sort: false, 'hidden': true},
-            { id: 'title', name: 'Title', resizable: true,'attributes': editableCellAttributes},
-            { id: 'description', name: 'Description', sort: false, resizable: true,'attributes': editableCellAttributes},
-            { id: 'basePay', name: 'Base Pay', formatter: (cell) => `$${cell}`, width: 200,resizable: true,'attributes': editableCellAttributes},
-            
+            { id: 'title', name: 'Title', sort: true,'attributes': editableCellAttributes},
+            { id: 'description', name: 'Descirption','attributes': editableCellAttributes},
+            { id: 'employeeCount', name: 'Employee Count',sort: true},
+    
             //used to delete rows
-            { id: 'delete', name: 'Delete', sort: false, width: 200,formatter: (cell, row) => {
+            { id: 'delete', name: 'Delete', sort: false, width: 150, formatter: (cell, row) => {
                 return h('button', {onClick: () =>{
                   console.log(row.cells[0]);
-                  //DELETE
-                  fetch(`/${username}/positions/data`, {
+                  fetch(`/${username}/departments/data`, {
                     method: 'DELETE',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
@@ -38,9 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         ], 
-        //GET
         server: {
-          url:`/${username}/positions/data`,
+          url: `/${username}/departments/data`,
           method: 'GET',
           then: results => results.data,
           total: results => results.total,
@@ -72,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (ev.target.tagName === 'TD') {
           if (previousValue !== ev.target.textContent) {
             // console.log(savedValue, ev.target.textContent);
-            fetch(`/${username}/positions/data`, {
+            fetch(`/${username}/departments/data`, {
               method: 'PUT',
               headers: {'Content-Type': 'application/json'},
               body: JSON.stringify({
@@ -83,25 +81,23 @@ document.addEventListener('DOMContentLoaded', () => {
             });
           }
           previousValue = undefined;
-          location.reload() //refreshes page to display changes
         }
+        location.reload() //refreshes page to display changes T
+                          //TODO: Update the chart by passing the new data to it rather than reloading
     });
 
     //I hate this hack so much. Flask-wtf wants to route to the api and leave the page so now I gotta do this
-    //POST
     document.getElementById("submit").addEventListener("click", () =>{
       var titleInput = document.getElementById('titleInput');
       var descriptionInput = document.getElementById('descriptionInput');
-      var basePayInput = document.getElementById('basePayInput');
 
-      fetch(`/${username}/positions/data`, {
+      fetch(`/${username}/departments/data`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
           title: titleInput.value,
-          description: descriptionInput.value,
-          basePay: basePayInput.value
+          description: descriptionInput.value
         }),
       });
   })
-})
+});

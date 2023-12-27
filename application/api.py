@@ -2,7 +2,7 @@ from flask import Blueprint, request, abort, flash
 from flask_login import login_required, current_user
 from datetime import datetime
 import phonenumbers
-from .models import Admin, Position, Employee
+from .models import Admin, Position, Employee, Department
 from .views import *
 from . import db
 
@@ -10,6 +10,7 @@ import re
 
 api = Blueprint('api', __name__)
 
+#Positions page API
 @api.route("/<username>/positions/data", methods=['GET', 'POST', 'PUT', 'DELETE'])
 def data(username):
     if request.method == 'GET':
@@ -85,7 +86,7 @@ def employees(username):
             'data': [Employee.to_dict() for Employee in employees]
         }
     
-    elif request.method == 'PUT':
+    if request.method == 'PUT':
         data = request.get_json()
         print(data)
         if 'id' not in data:
@@ -107,6 +108,25 @@ def employees(username):
                 return '', 400
 
             setattr(employee, 'position_id', position_id)
+
+        elif 'department' in data:
+            try: #checks to see if the department exists
+                department = Department.query.filter_by(title = data.get('department')).first()
+                department_id = department.id
+            except AttributeError as e: #returns 400 if the department does not exist
+                print("PUT department error:", e)
+                return '', 400
+
+            #updates the employee count for the department the employee was removed from
+            oldDepartment = Department.query.filter_by(title = data.get('previousValue')).first()
+            if oldDepartment:
+                newEmployeeCount = oldDepartment.employeeCount - 1
+                setattr(oldDepartment, 'employeeCount', newEmployeeCount)
+
+            #updates the new information
+            newEmployeeCount = department.employeeCount + 1
+            setattr(department, 'employeeCount', newEmployeeCount)
+            setattr(employee, 'department_id', department_id)
 
         elif 'email' in data:
             setattr(employee, 'email', data.get('email'))
@@ -139,13 +159,13 @@ def employees(username):
         db.session.commit()
         return '', 200
 
-    elif request.method == 'POST':
+    if request.method == 'POST':
         data = request.get_json()
 
         #returns 400 for invalid input
-        if data.get('firstName').strip() == "" or data.get('lastName').strip() == "" or data.get('email').strip() == "" or data.get('phoneNumber').strip() == "":
-            print('Invalid Input for employee POST request')
-            return '', 400
+        # if data.get('firstName').strip() == "" or data.get('lastName').strip() == "" or data.get('email').strip() == "" or data.get('phoneNumber').strip() == "":
+        #     print('Invalid Input for employee POST request')
+        #     return '', 400
         
         phoneNumber = phonenumbers.format_number(phonenumbers.parse(data.get('phoneNumber'), 'CA'), phonenumbers.PhoneNumberFormat.NATIONAL)
         dateHiredParsed = data.get('dateHired').split('-')
@@ -154,15 +174,83 @@ def employees(username):
         birthday = datetime(year=int(brithdayParsed[0]), month=int(brithdayParsed[1]), day=int(brithdayParsed[2]))
 
         new_employee = Employee(firstName=data.get('firstName'), lastName=data.get('lastName'), email=data.get('email'), phoneNumber=phoneNumber, salary=data.get('salary'), 
-                                dateHired=dateHired.date(), birthday=birthday.date(), position_id=data.get('position'), admin_id=current_user.id)
+                                dateHired=dateHired.date(), birthday=birthday.date(), position_id=data.get('position'), department_id = data.get('department'), admin_id=current_user.id)
        
         db.session.add(new_employee)
+
+        #updates the employee count for the department
+        department = Department.query.filter_by(id=data.get('department')).first()
+        newEmployeeCount = department.employeeCount + 1
+        setattr(department, 'employeeCount', newEmployeeCount)
+
         db.session.commit()
         return '', 200
     
-    elif request.method == 'DELETE':
+    if request.method == 'DELETE':
         data = request.get_json()
 
         Employee.query.filter_by(id=data.get('id')).delete()
+
+        #updates the employee count for the department
+        print(data)
+        department = Department.query.filter_by(title=data.get('department')).first()
+        if department:
+            newEmployeeCount = department.employeeCount - 1
+            setattr(department, 'employeeCount', newEmployeeCount)
+
         db.session.commit()
         return '', 200
+
+#Department Page API
+@api.route('/<username>/departments/data', methods=['GET', 'POST', 'PUT', 'DELETE'])
+def departments(username):
+
+    #GET
+    if request.method == 'GET':
+        admin = Admin.query.filter_by(username=username).first()
+        departments = Department.query.filter_by(admin_id = admin.id)
+        
+        # data = [Department.to_dict() for Department in departments]
+        # print(data)
+
+        return {
+            'data': [Department.to_dict() for Department in departments]
+        }, 200
+    
+    if request.method == 'PUT':
+        data = request.get_json()
+        print(data)
+        if 'id' not in data:
+            abort(400)
+
+        department = Department.query.filter_by(id=data.get('id')).first()
+
+        if 'title' in data:
+            setattr(department, 'title', data.get('title'))
+        
+        if 'description' in data:
+            setattr(department, 'description', data.get('description'))
+
+        db.session.commit()
+
+        return '', 200
+
+    if request.method == 'POST':
+        data = request.get_json()
+
+        new_department = Department(title=data.get('title'), description=data.get('description'), admin_id=current_user.id)
+        db.session.add(new_department)
+        db.session.commit()
+
+        return '', 200
+    
+    if request.method == 'DELETE':
+        data = request.get_json()
+        
+        Department.query.filter_by(id=data.get('id')).delete()
+
+        db.session.commit()
+        return '', 200
+    
+         
+

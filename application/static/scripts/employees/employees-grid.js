@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 'firstName', name: 'First Name', resizable: true,'attributes': editableCellAttributes},
             { id: 'lastName', name: 'Last Name', resizable: true,'attributes': editableCellAttributes},
             { id: 'position', name: 'Position', resizable: true,'attributes': editableCellAttributes},
+            { id: 'department', name: 'Department', resizable: true,'attributes': editableCellAttributes},
             { id: 'email', name: 'Email', resizable: true,'attributes': editableCellAttributes},
             { id: 'phoneNumber', name: 'Phone Number', resizable: true,'attributes': editableCellAttributes},
             { id: 'salary', name: 'Salary', formatter: (cell) => `$${cell}`, width: 150, resizable: true,'attributes': editableCellAttributes},
@@ -34,7 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     method: 'DELETE',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
-                      id: row.cells[0].data
+                      id: row.cells[0].data, //row is hidden
+                      department: row.cells[4].data
                     }),
                   });
                   location.reload() //refreshes page to display changes
@@ -63,28 +65,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }).render(document.getElementById('table'));
 
-    let savedValue;
+    let previousValue;
 
     table.addEventListener('focusin', ev => {
         if (ev.target.tagName === 'TD') {
-          savedValue = ev.target.textContent;
+          previousValue = ev.target.textContent;
         }
     });
 
     table.addEventListener('focusout', ev => {
         if (ev.target.tagName === 'TD') {
-          if (savedValue !== ev.target.textContent) {
+          if (previousValue !== ev.target.textContent) {
             // console.log(savedValue, ev.target.textContent);
             fetch(`/${username}/employees/data`, {
               method: 'PUT',
               headers: {'Content-Type': 'application/json'},
               body: JSON.stringify({
                 id: ev.target.dataset.elementId,
-                [ev.target.dataset.columnId]: ev.target.textContent
+                [ev.target.dataset.columnId]: ev.target.textContent,
+                previousValue: previousValue
               }),
             });
           }
-          savedValue = undefined;
+          previousValue = undefined;
         }
         location.reload() //refreshes page to display changes T
                           //TODO: Update the chart by passing the new data to it rather than reloading
@@ -100,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
       var dateHiredInput = document.getElementById('dateHiredInput');
       var birthdayInput = document.getElementById('birthdayInput');
       var positionSelect = document.getElementById('positionSelect');
+      var departmentSelect = document.getElementById('departmentSelect');
 
       fetch(`/${username}/employees/data`, {
         method: 'POST',
@@ -112,7 +116,8 @@ document.addEventListener('DOMContentLoaded', () => {
           salary: salaryInput.value,
           dateHired: dateHiredInput.value,
           birthday: birthdayInput.value,
-          position: positionSelect.value
+          position: positionSelect.value,
+          department: departmentSelect.value
         }),
       });
   })

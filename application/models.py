@@ -24,15 +24,21 @@ class Employee(db.Model):
     position_id = db.Column(db.Integer, db.ForeignKey('position.id'))
     department_id = db.Column(db.Integer, db.ForeignKey('department.id'))
     admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'))
-    
 
     def to_dict(self):
         position = Position.query.filter_by(id=self.position_id).first()
+        try:
+            positionTitle = position.title
+        except: #if the position was deleted
+            positionTitle = 'None'
 
-        if position == None:
-            return '', 400
-        
-        positionTitle = position.title
+
+        department = Department.query.filter_by(id=self.department_id).first()
+        try:
+            departmentTitle = department.title
+        except: #if the department was deleted
+            departmentTitle = 'None'
+
         return {
             'id': self.id,
             'firstName': self.firstName,
@@ -43,6 +49,7 @@ class Employee(db.Model):
             'dateHired': str(self.dateHired),
             'birthday': str(self.birthday),
             'position': positionTitle,
+            'department': departmentTitle,
             'admin_id': self.admin_id
         }
 
@@ -67,6 +74,17 @@ class Department(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(50),nullable=False)
     description = db.Column(db.String(175), nullable=False)
-    employeeCount = db.Column(db.Integer)
+    employeeCount = db.Column(db.Integer, default=0)
     admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'))
     employees = db.relationship('Employee', backref='department')
+
+
+
+    def to_dict(self):
+        return{
+            'id': self.id,
+            'title': self.title,
+            'description': self.description,
+            'employeeCount': self.employeeCount,
+            'admint_id': self.admin_id
+        }

@@ -2,8 +2,9 @@
     --mainColour: #198754;
 }
 
+
 .mainContent{
-    margin-left: 11vw;
+    margin-left: 13vw;
 }
 
 #title{
@@ -14,10 +15,9 @@
     font-size: 5vh;
 }
 
-
 .tableContainer{
     display: inline-flex;
-    max-width: 87vw;
+    max-width: 83vw;
 }
 
 #table{
@@ -68,6 +68,7 @@ td[data-column-id="edit"] > button{
     margin-top: 5vh;
 }
 
+
 .formContainer{
     text-align: center;
     display: flex;
@@ -87,125 +88,30 @@ td[data-column-id="edit"] > button{
     text-decoration: underline;
 }
 
-#firstNameInput{
-    width: 11vw;
+#titleInput{
     border: 2px solid var(--mainColour);
     border-radius: 30px;
     padding: 1.5vh 1vw 1.5vh 1vw;
     margin: 2vh 0vw 2vh 0vw;
+    width: 23vw;
 }
 
-#lastNameInput{
-    width: 11vw;
+#descriptionInput{
     border: 2px solid var(--mainColour);
     border-radius: 30px;
-    padding: 1.5vh 1vw 1.5vh 1vw;
+    padding: 2vh 1vw 10vh 1vw;
     margin: 2vh 0vw 2vh 0vw;
+    width: 23vw;
 }
-
-#emailInput{
-    width: 22vw;
-    border: 2px solid var(--mainColour);
-    border-radius: 30px;
-    padding: 1.5vh 1vw 1.5vh 1vw;
-    margin: 2vh 0vw 2vh 0vw;
-}
-
-#phoneNumberInput{
-    width: 22vw;
-    border: 2px solid var(--mainColour);
-    border-radius: 30px;
-    padding: 1.5vh 1vw 1.5vh 1vw;
-    margin: 2vh 0vw 2vh 0vw;
-}
-
-#salaryInput{
-    width: 22vw;
-    border: 2px solid var(--mainColour);
-    border-radius: 30px;
-    padding: 1.5vh 1vw 1.5vh 1vw;
-    margin: 2vh 0vw 2vh 0vw;
-}
-
-.dateHiredInputDiv{
-    width: 11vw;
-    float: left;
-    margin-top: 1.5vh;
-}
-
-.birthdayInputDiv{
-    width: 11vw;
-    float: right;
-    margin-top: 1.5vh;
-}
-
-#dateHiredInput{
-    width: 11vw;
-    border: 2px solid var(--mainColour);
-    border-radius: 30px;
-    padding: 1.5vh 1vw 1.5vh 1vw;
-    margin: 1vh 0vw 2vh 0vw;
-}
-
-#birthdayInput{
-    width: 11vw;
-    border: 2px solid var(--mainColour);
-    border-radius: 30px;
-    padding: 1.5vh 1vw 1.5vh 1vw;
-    margin: 1vh 0vw 2vh 0vw;
-}
-
-.clear { clear:both; }
-
-.positionInputDiv{
-    margin-top: 1vh;
-    display: block;
-}
-
-#positionSelect{
-    border: 2px solid var(--mainColour);
-    border-radius: 30px;
-    padding: 1vh 2vw 1vh 2vw;
-    margin: 1vh 0vw 2vh 0vw;
-    min-width: 50%;
-}
-
-.departmentInputDiv{
-    margin-top: 1vh;
-    display: block;
-}
-
-#departmentSelect{
-    border: 2px solid var(--mainColour);
-    border-radius: 30px;
-    padding: 1vh 2vw 1vh 2vw;
-    margin: 1vh 0vw 2vh 0vw;
-    min-width: 50%;
-}
-
 
 #submit{
     border: 2px solid var(--mainColour);
     border-radius: 10px;
-    margin: 3vh 0vw 1vh 0vw;
+    margin: 2vh 0vw 1vh 0vw;
     padding: 1.5vh 2vw 1.5vh 2vw;
     font-size: 1em;
     background-color: #198754;
     color: white;
-}
-
-.chartsContainer{
-    width: 45vw;
-    height: 100vh;
-    margin-right: 8.5vw;
-}
-
-#chartTitle{
-    color: var(--mainColour);
-    font-weight: 600;
-    text-decoration: underline;
-    text-align: center;
-    margin-bottom: 3vh;
 }
 
 #footer{

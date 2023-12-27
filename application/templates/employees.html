@@ -3,9 +3,9 @@
 {% block title %}Employees{% endblock %}
 
 {% block static %} 
-    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/employees.css') }}">
 
+    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
     <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
     <script type="module" src="{{ url_for('static',filename='scripts/employees/employees-grid.js') }}" id="employees-grid" data-username="{{username}}"></script>
 
@@ -65,6 +65,11 @@
         <div class="positionInputDiv">
           <h6>Position</h6>
           {{form.position}}
+        </div>
+
+        <div class="departmentInputDiv">
+          <h6>Department</h6>
+          {{form.department}}
         </div>
   
         <div>
