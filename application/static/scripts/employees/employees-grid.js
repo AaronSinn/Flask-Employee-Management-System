@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 'position', name: 'Position', resizable: true,'attributes': editableCellAttributes},
             { id: 'department', name: 'Department', resizable: true,'attributes': editableCellAttributes},
             { id: 'email', name: 'Email', resizable: true,'attributes': editableCellAttributes},
-            { id: 'phoneNumber', name: 'Phone Number', resizable: true,'attributes': editableCellAttributes},
-            { id: 'salary', name: 'Salary', formatter: (cell) => `$${cell}`, width: 150, resizable: true,'attributes': editableCellAttributes},
+            { id: 'phoneNumber', name: 'Work Phone', resizable: true, width: 160,'attributes': editableCellAttributes},
+            { id: 'salary', name: 'Salary', formatter: (cell) => `$${cell}`, width: 120, resizable: true,'attributes': editableCellAttributes},
             { id: 'dateHired', name: 'Date Hired', width: 170, resizable: true,'attributes': editableCellAttributes},
             { id: 'birthday', name: 'Birthday', width: 170, resizable: true,'attributes': editableCellAttributes},
             

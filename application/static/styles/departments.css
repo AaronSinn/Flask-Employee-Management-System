@@ -68,7 +68,6 @@ td[data-column-id="edit"] > button{
     margin-top: 5vh;
 }
 
-
 .formContainer{
     text-align: center;
     display: flex;
@@ -112,6 +111,19 @@ td[data-column-id="edit"] > button{
     font-size: 1em;
     background-color: #198754;
     color: white;
+}
+
+.chartsContainer{
+    width: 52vw;
+    margin-right: 4vw;
+}
+
+#chartTitle{
+    color: var(--mainColour);
+    font-weight: 600;
+    text-decoration: underline;
+    text-align: center;
+    margin-bottom: 3vh;
 }
 
 #footer{

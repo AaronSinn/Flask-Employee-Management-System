@@ -247,6 +247,11 @@ def departments(username):
     if request.method == 'DELETE':
         data = request.get_json()
         
+        #removes employee from the department getting deleted
+        employeesInDepartment = Employee.query.filter_by(department_id = data.get('id')).all()
+        for employee in employeesInDepartment:
+            employee.department_id = None
+
         Department.query.filter_by(id=data.get('id')).delete()
 
         db.session.commit()
