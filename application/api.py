@@ -252,10 +252,7 @@ def departments(username):
         for employee in employeesInDepartment:
             employee.department_id = None
 
-        Department.query.filter_by(id=data.get('id')).delete()
+        Department.query.filter_by(id=data.get('id')).delete() 
 
         db.session.commit()
         return '', 200
-    
-         
-
