@@ -1,0 +1,21 @@
+:root{
+    --mainColour: #198754;
+}
+
+
+.mainContent{
+    margin-left: 13vw;
+}
+
+/* #title{
+    text-align: center;
+    color: var(--mainColour);
+    margin-bottom: 1vh;
+    text-decoration: underline;
+    font-size: 5vh;
+} */
+
+.calendarContainer{
+    color: var(--mainColour);
+    width: 83vw;
+}

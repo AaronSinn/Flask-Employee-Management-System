@@ -256,3 +256,20 @@ def departments(username):
 
         db.session.commit()
         return '', 200
+
+@api.route('<username>/calendar/birthdays')
+def brithdays(username):
+    admin = Admin.query.filter_by(username=username).first()
+    employees = Employee.query.filter_by(admin_id=admin.id)
+    birthdays = []
+
+    for employee in employees:
+        birthdays.append({
+            'title': employee.firstName + "'s" + " brithday",
+            'start': str(employee.birthday),
+            'end': str(employee.birthday)
+        })
+
+    return {'birthdays': birthdays}
+
+    

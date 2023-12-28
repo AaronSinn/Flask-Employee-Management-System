@@ -42,8 +42,8 @@
                         </li>
 
                         <li  class="sidebarLink">
-                            <a href="#" class="nav-link px-0 text-white align-middle">
-                                <i class="fa-solid fa-calendar-days"></i> </i> <span class="ms-1 d-none d-sm-inline">Time Off</span> </a>
+                            <a href="{{url_for('views.calendar', username=current_user.username)}}" class="nav-link px-0 text-white align-middle">
+                                <i class="fa-solid fa-calendar-days"></i> </i> <span class="ms-1 d-none d-sm-inline">Calendar</span> </a>
                         </li>
                     </ul>
 

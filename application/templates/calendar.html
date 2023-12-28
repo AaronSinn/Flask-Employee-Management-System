@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block static %} 
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/calendar.css') }}">
+
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='scripts/calendar/calendar-calendar.js') }}" id="calendar-calendar" data-username="{{username}}"></script>
+{% endblock %}
+
+{% block title%}Calendar{% endblock %}
+
+{% block content %}
+<div class="mainContent">
+    <!-- <h1 id="title">Time Off</h1> -->
+    
+    <div class="calendarContainer">
+        <div id='calendar'></div>
+    </div>
+</div>
+{% endblock %}

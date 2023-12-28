@@ -61,4 +61,10 @@ def departments(username):
 
     return render_template('departments.html', name=current_user.firstName + " " + current_user.lastName, username=username, form=form)
 
+@login_required
+@views.route('<username>/calendar')
+def calendar(username):
+
+    return render_template('calendar.html', name=current_user.firstName + " " + current_user.lastName, username=username)
+
 
