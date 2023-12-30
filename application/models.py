@@ -1,5 +1,6 @@
 from . import db
 from flask_login import UserMixin
+from sqlalchemy.types import Time
 
 class Admin(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -10,6 +11,7 @@ class Admin(db.Model, UserMixin):
     positions = db.relationship('Position', backref='admin')
     employees = db.relationship('Employee', backref='admin')
     departments = db.relationship('Department', backref='admin')
+    calendarDates = db.relationship('CalendarDates', backref='admin')
     
 
 class Employee(db.Model):
@@ -86,5 +88,29 @@ class Department(db.Model):
             'title': self.title,
             'description': self.description,
             'employeeCount': self.employeeCount,
+            'admint_id': self.admin_id
+        }
+    
+class CalendarDates(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String(50),nullable=False)
+    startDate = db.Column(db.Date, nullable=True)
+    startTime = db.Column(Time, nullable=True)
+    endDate = db.Column(db.Date, nullable=False)
+    endTime = db.Column(Time, nullable=False)
+    frequency = db.Column(db.Integer, nullable=False)
+    admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'))
+
+
+
+    def to_dict(self):
+        return{
+            'id': self.id,
+            'title': self.title,
+            'startDate': self.startDate,
+            'startTime': self.startTime,
+            'endDate': self.endDate,
+            'endTime': self.endTime,
+            'frequency': self.frequency,
             'admint_id': self.admin_id
         }

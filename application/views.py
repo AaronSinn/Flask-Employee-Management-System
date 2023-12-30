@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, url_for, redirect
 from flask_login import login_required, current_user
-from datetime import datetime
-from .forms import PositionForm, EmployeeForm, DepartmentForm
-from .models import Admin, Position, Employee, Department
+from datetime import datetime, time
+from .forms import PositionForm, EmployeeForm, DepartmentForm, EventForm, EventFormEdit
+from .models import Admin, Position, Employee, Department, CalendarDates
 from . import db
 
 
@@ -25,10 +25,6 @@ def dashboard(username):
 @login_required
 @views.route('/<username>/positions')
 def positions(username):
-    admin = current_user.id
-
-    positions = Position.query.filter_by(admin_id=current_user.id)
-    
     form = PositionForm()
 
     return render_template('positions.html', name=current_user.firstName + " " + current_user.lastName, username=username, form=form)
@@ -65,6 +61,21 @@ def departments(username):
 @views.route('<username>/calendar')
 def calendar(username):
 
-    return render_template('calendar.html', name=current_user.firstName + " " + current_user.lastName, username=username)
+    # startDateParsed ='2023-12-03'.split('-')
+    # endDateParsed ='2024-12-04'.split('-')
+    # startDate = datetime(year=int(startDateParsed[0]), month=int(startDateParsed[1]), day=int(startDateParsed[2])).date()
+    # endDate = datetime(year=int(endDateParsed[0]), month=int(endDateParsed[1]), day=int(endDateParsed[2])).date()
+
+    # startTime = time(hour=9, minute=21)
+    # endTime = time(hour=14, minute=2)
+
+
+    # new_event = CalendarDates(title='test3', startDate=startDate, startTime=startTime, endDate=endDate, endTime=endTime, frequency=1, admin_id=current_user.id)
+    # db.session.add(new_event)
+    # db.session.commit()
+
+    form = EventForm()
+    editForm = EventFormEdit()
+    return render_template('calendar.html', name=current_user.firstName + " " + current_user.lastName, username=username, form=form, editForm=editForm)
 
 

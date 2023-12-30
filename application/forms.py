@@ -1,6 +1,6 @@
 from flask import request
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField, SelectField, DateField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField, SelectField, DateField, TimeField
 from wtforms.validators import DataRequired
 
 from .models import Position
@@ -43,3 +43,22 @@ class DepartmentForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()], id='titleInput')
     description = StringField('Description', validators=[DataRequired()], id='descriptionInput')
     submit = SubmitField('Add Department')
+
+class EventForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()], id='titleInput')
+    startDate =  DateField('Start Date', validators=[DataRequired()], format='%Y-%m-%d', id='startDateInput')
+    startTime = TimeField('Start Time',  format='%H:%M', id='startTimeInput')
+    endDate =  DateField('End Date', validators=[DataRequired()], format='%Y-%m-%d', id='endDateInput')
+    endTime = TimeField('End Time',  format='%H:%M', id='endTimeInput')
+    frequency = SelectField('Frequency', choices=[(0, 'Do not repeat'), (1, 'Repeat weekly'), (2, 'Repeat monthly'), (3, 'Repeat yearly')],validators=[DataRequired()], id='frequencySelect')
+    submit = SubmitField('Add Event')
+
+#The above class is for POST requests. This one is for PUTS
+class EventFormEdit(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()], id='titleInputEdit')
+    startDate =  DateField('Start Date', validators=[DataRequired()], format='%Y-%m-%d', id='startDateEdit')
+    startTime = TimeField('Start Time',  format='%H:%M', id='startTimeInputEdit')
+    endDate =  DateField('End Date', validators=[DataRequired()], format='%Y-%m-%d', id='endDateInputEdit')
+    endTime = TimeField('End Time',  format='%H:%M', id='endTimeInputEdit')
+    frequency = SelectField('Frequency', choices=[(0, 'Do not repeat'), (1, 'Repeat weekly'), (2, 'Repeat monthly'), (3, 'Repeat yearly')],validators=[DataRequired()], id='frequencySelectEdit')
+    submit = SubmitField('Add Event', id='submitEdit')

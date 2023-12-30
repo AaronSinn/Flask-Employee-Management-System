@@ -1,8 +1,8 @@
 from flask import Blueprint, request, abort, flash
 from flask_login import login_required, current_user
-from datetime import datetime
+from datetime import datetime, time
 import phonenumbers
-from .models import Admin, Position, Employee, Department
+from .models import Admin, Position, Employee, Department, CalendarDates
 from .views import *
 from . import db
 
@@ -257,19 +257,86 @@ def departments(username):
         db.session.commit()
         return '', 200
 
-@api.route('<username>/calendar/birthdays')
-def brithdays(username):
-    admin = Admin.query.filter_by(username=username).first()
-    employees = Employee.query.filter_by(admin_id=admin.id)
-    birthdays = []
+@api.route('<username>/calendar/data', methods=['GET', 'POST', 'PUT', 'DELETE'])
+def events(username):
+    print('METHOD:', request.method)
+    #GET
+    if request.method == 'GET':
 
-    for employee in employees:
-        birthdays.append({
-            'title': employee.firstName + "'s" + " brithday",
-            'start': str(employee.birthday),
-            'end': str(employee.birthday)
-        })
+        admin = Admin.query.filter_by(username=username).first()
+        employees = Employee.query.filter_by(admin_id=admin.id)
+        calendarDates = CalendarDates.query.filter_by(admin_id=admin.id)
+        events = []
 
-    return {'birthdays': birthdays}
+        #adds the employees brithdays to the event list
+        for employee in employees:
+            events.append({
+                'title': employee.firstName + "'s" + " brithday",
+                #makes the brithdays repeat annually until 2999-12-31
+                'rrule': {
+                    'freq': 'yearly',
+                    'dtstart': str(employee.birthday),
+                    'until': '2999-12-31'
+                }
+            })
+        
+        for event in calendarDates:
+            print('DATE',event.startDate)
+            print('FREQ', event.frequency)
+
+            #if the event has a frequency that repeats 
+            frequency=None
+            if  event.frequency != 0:
+
+                if event.frequency == 1:
+                    frequency='weekly'
+                elif event.frequency == 2:
+                    frequency='monthly'
+                elif event.frequency == 3:
+                    frequency='yearly'
+
+                events.append({
+                    'title': event.title,
+                    'rrule':{
+                        'freq': frequency,
+                        'dtstart': str(event.startDate) + 'T' + str(event.startTime),
+                        'until': str(event.endDate) + 'T' + str(event.endTime),
+                    }
+                })
+
+            else:#if the event does not repeat
+                print('END', str(event.endTime))
+                events.append({
+                    'title': event.title,
+                    'start': str(event.startDate) + 'T' + str(event.startTime),
+                    'end': str(event.endDate) + 'T' + str(event.endTime),
+                })
+
+
+        return {'events': events}
+
+    #POST
+    if request.method == 'POST':
+        data = request.get_json()
+        print(data)
+        admin = Admin.query.filter_by(username=username).first()
+
+        startDateParsed = data.get('startDate').split('-')
+        endDateParsed = data.get('endDate').split('-')
+        startDate = datetime(year=int(startDateParsed[0]), month=int(startDateParsed[1]), day=int(startDateParsed[2]))
+        endDate = datetime(year=int(endDateParsed[0]), month=int(endDateParsed[1]), day=int(endDateParsed[2]))
+
+        startTimeParsed = data.get('startTime').split(':')
+        endTimeParsed = data.get('endTime').split(':')
+        startTime = time(hour=int(startTimeParsed[0]), minute=int(startTimeParsed[1]))
+        endTime = time(hour=int(endTimeParsed[0]), minute=int(endTimeParsed[1]))
+
+        new_event = CalendarDates(title=data.get('title'), startDate=startDate, startTime=startTime, endDate=endDate, endTime=endTime, frequency=data.get('frequency'), admin_id=admin.id)
+        db.session.add(new_event)
+        db.session.commit()
+
+        return '', 200
+        
+
 
     

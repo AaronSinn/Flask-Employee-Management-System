@@ -82,9 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
           }
           previousValue = undefined;
         }
-        location.reload() //refreshes page to display changes T
-                          //TODO: Update the chart by passing the new data to it rather than reloading
-    });
+        location.reload()                      
+    }); 
 
     //I hate this hack so much. Flask-wtf wants to route to the api and leave the page so now I gotta do this
     document.getElementById("submit").addEventListener("click", () =>{

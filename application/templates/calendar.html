@@ -3,7 +3,15 @@
 {% block static %} 
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/calendar.css') }}">
 
+    <!-- rrule lib -->
+    <script src='https://cdn.jsdelivr.net/npm/rrule@2.6.4/dist/es5/rrule.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+    <!-- the rrule-to-fullcalendar connector. must go AFTER the rrule lib -->
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/rrule@6.1.10/index.global.min.js'></script>
+
+    <!-- files for themes -->
+    
+
     <script type="text/javascript" src="{{ url_for('static',filename='scripts/calendar/calendar-calendar.js') }}" id="calendar-calendar" data-username="{{username}}"></script>
 {% endblock %}
 
@@ -15,6 +23,113 @@
     
     <div class="calendarContainer">
         <div id='calendar'></div>
+    </div>
+
+    <!-- Modal for POST requests -->
+    <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Add Event</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <!-- Modal content goes here -->
+                </div>
+                <div class="modal-footer">
+                    <div class="formContainer">
+                        <form action="", novalidate>
+                            {{ form.hidden_tag() }}
+
+                            <div class="titleInputContainer">
+                                <div><h6 class="formSubtitle">Event Title</h6></div>
+                                {{form.title(placeholder='Event Title')}}
+                            </div>
+
+                            <div class="startContainer">
+                                <div><h6 class="formSubtitle">Event Start</h6></div>
+                                <span>{{form.startDate()}}</span>
+                                <span>{{form.startTime()}}</span>
+                            </div>
+
+                            <div class="clear"></div> <!--Stops position Div from over lapping with the dates -->
+
+                            <div class="endContainer">
+                                <div><h6 class="formSubtitle">Event End</h6></div>
+                                <span>{{form.endDate()}}</span>
+                                <span>{{form.endTime()}}</span>
+                            </div>
+                            
+                            <div class="clear"></div> <!--Stops position Div from over lapping with the dates -->
+
+                            <div class="frequencyContainer">
+                                
+                                <div>{{form.frequency}}</div>
+                            </div>
+
+                            <div class="formButtons">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                {{form.submit()}}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for DELETE and PUTS requests -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Event</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <!-- Modal content goes here -->
+                </div>
+                <div class="modal-footer">
+                    <div class="formContainer">
+                        <form action="", novalidate>
+                            {{ editForm.hidden_tag() }}
+
+                            <div class="titleInputContainer">
+                                <div><h6 class="formSubtitle">Event Title</h6></div>
+                                {{editForm.title(placeholder='Event Title')}}
+                            </div>
+
+                            <div class="startContainer">
+                                <div><h6 class="formSubtitle">Event Start</h6></div>
+                                <span>{{editForm.startDate()}}</span>
+                                <span>{{editForm.startTime()}}</span>
+                            </div>
+
+                            <div class="clear"></div> <!--Stops position Div from over lapping with the dates -->
+
+                            <div class="endContainer">
+                                <div><h6 class="formSubtitle">Event End</h6></div>
+                                <span>{{editForm.endDate()}}</span>
+                                <span>{{editForm.endTime()}}</span>
+                            </div>
+                            
+                            <div class="clear"></div> <!--Stops position Div from over lapping with the dates -->
+
+                            <div class="frequencyContainer">
+                                
+                                <div>{{editForm.frequency}}</div>
+                            </div>
+
+                            <div class="formButtons">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button>
+                                {{editForm.submit()}}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

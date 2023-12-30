@@ -16,6 +16,121 @@
 } */
 
 .calendarContainer{
-    color: var(--mainColour);
+    color: var(--mainColour); 
     width: 83vw;
+}
+
+.fc-daygrid-day-number, .fc-col-header-cell-cushion, .fc-daygrid-event-harness, .fc-event-time, .fc-event-title{
+    color: var(--mainColour); 
+}
+
+.fc-button-group{
+    background-color: var(--mainColour);
+}
+
+.fc-timeGridWeek-button, .fc-button, .fc-button-primary{
+    background-color: var(--mainColour);
+}
+
+.fc-event-title-container > .fc-event-title{
+    color: white;
+}
+
+#createModalLabel, #editModalLabel{
+    color: var(--mainColour);
+}
+
+.modal-footer{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.formSubtitle{
+    color: var(--mainColour);
+    text-decoration: underline;
+}
+
+.formContainer{
+    width: 100%;
+}
+
+
+#titleInput, #titleInputEdit{
+    width: 100%;
+    padding: 0.3vh 0vw 0.3vh -1vw;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.startContainer{
+    margin-top: 1vh;
+}
+
+#startDateInput, #startDateInputEdit{
+    float: left;
+    width: 48%;
+    padding: 0.3vh 0vw 0.3vh -1vw;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+#startTimeInput, #startTimeInputEdit{
+    float: right;
+    width: 48%;
+    padding: 0.3vh 0vw 0.3vh -1vw;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.clear { clear:both; }
+
+.endContainer{
+    margin-top: 1vh;
+}
+
+#endDateInput, #endDateInputEdit{
+    float: left;
+    width: 48%;
+    padding: 0.3vh 0vw 0.3vh -1vw;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+#endTimeInput, #endTimeInputEdit{
+    float: right;
+    width: 48%;
+    padding: 0.3vh 0vw 0.3vh -1vw;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.frequencyContainer{
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5vh;
+}
+
+#frequencySelect, #frequencySelectEdit{
+    padding: 0.3vh 0vw 0.3vh -1vw;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.formButtons{
+    margin-top: 3vh;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.btn, .btn-secondary{
+    width: 6vw;
+}
+
+#submit, #submitEdit{
+    background-color: #198754;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.8vh 0vw 0.8vh 0vw;
+    width: 6vw;
 }
