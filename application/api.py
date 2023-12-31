@@ -259,7 +259,6 @@ def departments(username):
 
 @api.route('<username>/calendar/data', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def events(username):
-    print('METHOD:', request.method)
     #GET
     if request.method == 'GET':
 
@@ -281,8 +280,6 @@ def events(username):
             })
         
         for event in calendarDates:
-            print('DATE',event.startDate)
-            print('FREQ', event.frequency)
 
             #if the event has a frequency that repeats 
             frequency=None
@@ -296,7 +293,9 @@ def events(username):
                     frequency='yearly'
 
                 events.append({
+                    'id': event.id,
                     'title': event.title,
+                    'timeZone': 'America/Toronto',
                     'rrule':{
                         'freq': frequency,
                         'dtstart': str(event.startDate) + 'T' + str(event.startTime),
@@ -305,9 +304,10 @@ def events(username):
                 })
 
             else:#if the event does not repeat
-                print('END', str(event.endTime))
                 events.append({
+                    'id': event.id,
                     'title': event.title,
+                    'timeZone': 'America/Toronto',
                     'start': str(event.startDate) + 'T' + str(event.startTime),
                     'end': str(event.endDate) + 'T' + str(event.endTime),
                 })
@@ -318,7 +318,6 @@ def events(username):
     #POST
     if request.method == 'POST':
         data = request.get_json()
-        print(data)
         admin = Admin.query.filter_by(username=username).first()
 
         startDateParsed = data.get('startDate').split('-')
@@ -336,6 +335,53 @@ def events(username):
         db.session.commit()
 
         return '', 200
+    
+    if request.method == 'PUT':
+        data = request.get_json()
+        admin = Admin.query.filter_by(username=username).first()
+        event = CalendarDates.query.filter_by(id=data.get('id')).first()
+
+        startDateParsed = data.get('startDate').split('-')
+        endDateParsed = data.get('endDate').split('-')
+        startDate = datetime(year=int(startDateParsed[0]), month=int(startDateParsed[1]), day=int(startDateParsed[2]))
+        endDate = datetime(year=int(endDateParsed[0]), month=int(endDateParsed[1]), day=int(endDateParsed[2]))
+
+        startTimeParsed = data.get('startTime').split(':')
+        endTimeParsed = data.get('endTime').split(':')
+        startTime = time(hour=int(startTimeParsed[0]), minute=int(startTimeParsed[1]))
+        endTime = time(hour=int(endTimeParsed[0]), minute=int(endTimeParsed[1]))
+
+        if 'title' in data:
+            setattr(event, 'title', data.get('title'))
+        
+        if 'startDate' in data:
+            setattr(event, 'startDate', startDate)
+        
+        if 'startTime' in data:
+            setattr(event, 'startTime', startTime)
+
+        if 'endDate' in data:
+            setattr(event, 'endDate', endDate)
+        
+        if 'endTime' in data:
+            setattr(event, 'endTime', endTime)
+        
+        if 'frequency' in data:
+            setattr(event, 'frequency', data.get('frequency'))
+        
+        db.session.commit()
+
+        return '', 200
+
+    if request.method == 'DELETE':
+        data = request.get_json()
+        print(data)
+        event = CalendarDates.query.filter_by(id=data.get('id')).delete()
+
+        db.session.commit()
+
+        return '', 200
+
         
 
 

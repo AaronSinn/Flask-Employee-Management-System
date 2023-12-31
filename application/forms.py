@@ -56,9 +56,9 @@ class EventForm(FlaskForm):
 #The above class is for POST requests. This one is for PUTS
 class EventFormEdit(FlaskForm):
     title = StringField('Title', validators=[DataRequired()], id='titleInputEdit')
-    startDate =  DateField('Start Date', validators=[DataRequired()], format='%Y-%m-%d', id='startDateEdit')
+    startDate =  DateField('Start Date', validators=[DataRequired()], format='%Y-%m-%d', id='startDateInputEdit')
     startTime = TimeField('Start Time',  format='%H:%M', id='startTimeInputEdit')
     endDate =  DateField('End Date', validators=[DataRequired()], format='%Y-%m-%d', id='endDateInputEdit')
     endTime = TimeField('End Time',  format='%H:%M', id='endTimeInputEdit')
     frequency = SelectField('Frequency', choices=[(0, 'Do not repeat'), (1, 'Repeat weekly'), (2, 'Repeat monthly'), (3, 'Repeat yearly')],validators=[DataRequired()], id='frequencySelectEdit')
-    submit = SubmitField('Add Event', id='submitEdit')
+    submit = SubmitField('Edit Event', id='submitEdit')

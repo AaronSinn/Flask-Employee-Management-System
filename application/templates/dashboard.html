@@ -1,1 +1,50 @@
 {% extends 'base.html' %}
+
+{% block title%}{{name}}'s Dashboard{% endblock %}
+
+{% block static %}
+<link rel="stylesheet" href="{{ url_for('static',filename='styles/dashboard.css') }}">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="mainContent">
+    <h2 id="title">Hello, {{name}}!</h2>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="summary-box">
+                <div class="title"><p>TOTAL EMPLOYEES</p></div>
+                <div class="value"><p><span bind="powerGenerated">19,167</span></p></div>
+            </div>
+        </div>
+    
+        <div class="col-md-3">
+            <div class="summary-box">
+                <div class="title"><p>TOTAL PAY ROLE</p></div>
+                <div class="value"><p><span bind="powerGenerated">$212300</span></p></div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="summary-box">
+                <div class="title"><p>LARGEST POSITION</p></div>
+                <div class="value"><p><span bind="powerGenerated">Salesman - 13 Employees</span></p></div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="summary-box">
+                <div class="title"><p>EMPLOYEES PER DEPARTMENT</p></div>
+                <div class="value"><p><span bind="powerGenerated">3.4 / Department</span></p></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="event-box">
+
+        </div>
+    </div>
+</div>
+{% endblock %}

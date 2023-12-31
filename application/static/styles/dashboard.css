@@ -1,0 +1,50 @@
+:root{
+    --mainColour: #198754;
+}
+
+.mainContent{
+    margin-left: 13vw;
+}
+
+
+#title{
+    color: var(--mainColour);
+    margin-bottom: 4vh;
+    text-decoration: underline;
+}
+
+.summary-box {
+    margin-top:10px;
+    height: 150px;
+    background-color:#ffffff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.summary-box .title {
+    width: 100%;
+    font-size:20px;
+    font-family: 'DM Sans', sans-serif;
+    color: #465865; 
+    display:table;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.summary-box .title p{
+    display:table-cell;
+    text-align:center;
+}
+
+.summary-box .value {
+    width: 100%;
+    display:table;
+}
+
+.summary-box .value p{
+    text-align:center;
+    font-size: 30px;
+    font-family: 'DM Sans', sans-serif;
+    color: #465865; 
+    padding-top: 18px;
+    display:table-cell;
+}

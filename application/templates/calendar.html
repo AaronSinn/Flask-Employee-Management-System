@@ -9,9 +9,6 @@
     <!-- the rrule-to-fullcalendar connector. must go AFTER the rrule lib -->
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/rrule@6.1.10/index.global.min.js'></script>
 
-    <!-- files for themes -->
-    
-
     <script type="text/javascript" src="{{ url_for('static',filename='scripts/calendar/calendar-calendar.js') }}" id="calendar-calendar" data-username="{{username}}"></script>
 {% endblock %}
 
@@ -26,11 +23,11 @@
     </div>
 
     <!-- Modal for POST requests -->
-    <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Add Event</h5>
+                <h5 class="modal-title" id="createModalLabel">Add Event</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -78,12 +75,12 @@
         </div>
     </div>
 
-    <!-- Modal for DELETE and PUTS requests -->
-    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal for DELETE and PUT requests -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Event</h5>
+                <h5 class="modal-title" id="editModalLabel">Add Event</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -122,7 +119,7 @@
 
                             <div class="formButtons">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button>
+                                <button type="button" class="btn btn-danger" id="deleteButton">Delete</button>
                                 {{editForm.submit()}}
                             </div>
                         </form>
