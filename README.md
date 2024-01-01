@@ -21,6 +21,9 @@ python run.py
 ## Viewing the App
 Go to `http://127.0.0.1:5000`
 
+## Database Diagram
+![Database Diagram](/SquadSync%20Screenshots/databaseDiagram.png)
+
 ## Javascript Libraires Used
 * [Chart.js](https://www.chartjs.org/docs/latest/)
 * [Grid.js](https://gridjs.io/)
