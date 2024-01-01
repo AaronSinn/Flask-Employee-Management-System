@@ -11,7 +11,7 @@ import re
 api = Blueprint('api', __name__)
 
 #Positions page API
-@api.route("/<username>/positions/data", methods=['GET', 'POST', 'PUT', 'DELETE'])
+@api.route("/<username>/positions/data", methods=['GET', 'POST', 'PATCH', 'DELETE'])
 def data(username):
     if request.method == 'GET':
         admin = Admin.query.filter_by(username=username).first()
@@ -21,7 +21,7 @@ def data(username):
             'data': [Position.to_dict() for Position in positions]
         }
     
-    elif request.method == 'PUT':
+    elif request.method == 'PATCH':
         data = request.get_json()
         print("POSITION DATA:", data)
         if 'id' not in data:
@@ -75,7 +75,7 @@ def data(username):
         return '', 204
 
 #Employee Page API 
-@api.route('/<username>/employees/data', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@api.route('/<username>/employees/data', methods=['GET', 'POST', 'PATCH', 'DELETE'])
 def employees(username):
 
     if request.method == 'GET':
@@ -86,7 +86,7 @@ def employees(username):
             'data': [Employee.to_dict() for Employee in employees]
         }
     
-    if request.method == 'PUT':
+    if request.method == 'PATCH':
         data = request.get_json()
         print(data)
         if 'id' not in data:
@@ -202,7 +202,7 @@ def employees(username):
         return '', 200
 
 #Department Page API
-@api.route('/<username>/departments/data', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@api.route('/<username>/departments/data', methods=['GET', 'POST', 'PATCH', 'DELETE'])
 def departments(username):
 
     #GET
@@ -210,14 +210,11 @@ def departments(username):
         admin = Admin.query.filter_by(username=username).first()
         departments = Department.query.filter_by(admin_id = admin.id)
         
-        # data = [Department.to_dict() for Department in departments]
-        # print(data)
-
         return {
             'data': [Department.to_dict() for Department in departments]
         }, 200
     
-    if request.method == 'PUT':
+    if request.method == 'PATCH':
         data = request.get_json()
         print(data)
         if 'id' not in data:

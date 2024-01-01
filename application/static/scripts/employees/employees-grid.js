@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (previousValue !== ev.target.textContent) {
             // console.log(savedValue, ev.target.textContent);
             fetch(`/${username}/employees/data`, {
-              method: 'PUT',
+              method: 'PATCH',
               headers: {'Content-Type': 'application/json'},
               body: JSON.stringify({
                 id: ev.target.dataset.elementId,
