@@ -28,16 +28,16 @@ Go to `http://127.0.0.1:5000`
 ## ScreenShots
 
 ### Home Page
-![Home Page](/SquadSync Screenshots/home page.png)
+![Home Page](/SquadSync%20Screenshots/home%20page.png)
 
 ### Register Page
-![Register Page](/SquadSync Screenshots/register.png)
+![Register Page](/SquadSync%20Screenshots/register.png)
 
 ### Dashboard
-![Dashboard](/SquadSync Screenshots/dashboard.png)
+![Dashboard](/SquadSync%20Screenshots/dashboard.png)
 
 ### Employees Page
-![Employees Page](/SquadSync Screenshots/employees.png)
+![Employees Page](/SquadSync%20Screenshots/employees.png)
 
 ### Calendar Page
-![Calendar Page](/SquadSync Screenshots/calendar.png)
+![Calendar Page](/SquadSync%20Screenshots/calendar.png)
