@@ -33,7 +33,6 @@ class Employee(db.Model):
         except: #if the position was deleted
             positionTitle = 'None'
 
-
         department = Department.query.filter_by(id=self.department_id).first()
         try:
             departmentTitle = department.title
@@ -97,7 +96,11 @@ class CalendarDates(db.Model):
     endTime = db.Column(Time, nullable=False)
     frequency = db.Column(db.Integer, nullable=False)
     admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'))
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 968fdfa3f448c04037920a8c3d1b3c66b95fd459
     def to_dict(self):
         return{
             'id': self.id,
