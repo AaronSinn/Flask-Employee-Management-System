@@ -10,7 +10,7 @@ git clone <repo-url>
 ```
 
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ## Running the App
@@ -21,7 +21,7 @@ python run.py
 ## Viewing the App
 Go to `http://127.0.0.1:5000`
 
-## Javascript Libaries Used
+## Javascript Libraires Used
 * [Chart.js](https://www.chartjs.org/docs/latest/)
 * [Grid.js](https://gridjs.io/)
 
