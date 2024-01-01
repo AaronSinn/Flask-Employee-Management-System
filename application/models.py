@@ -13,7 +13,6 @@ class Admin(db.Model, UserMixin):
     departments = db.relationship('Department', backref='admin')
     calendarDates = db.relationship('CalendarDates', backref='admin')
     
-
 class Employee(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     firstName = db.Column(db.String(35), nullable=False)
@@ -80,8 +79,6 @@ class Department(db.Model):
     admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'))
     employees = db.relationship('Employee', backref='department')
 
-
-
     def to_dict(self):
         return{
             'id': self.id,
@@ -100,8 +97,6 @@ class CalendarDates(db.Model):
     endTime = db.Column(Time, nullable=False)
     frequency = db.Column(db.Integer, nullable=False)
     admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'))
-
-
 
     def to_dict(self):
         return{

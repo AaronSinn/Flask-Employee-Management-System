@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         //Sets the deafult end date and time
         endDate =  document.getElementById('endDateInput')
-        endDate.value = info.startStr
+        endDate.value = info.endStr
         endTime = document.getElementById('endTimeInput')
         endTime.value ='13:00'
 

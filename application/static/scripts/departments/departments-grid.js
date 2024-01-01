@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         columns: [
             { id: 'id', sort: false, 'hidden': true},
             { id: 'title', name: 'Title', sort: true,'attributes': editableCellAttributes},
-            { id: 'description', name: 'Descirption','attributes': editableCellAttributes},
+            { id: 'description', name: 'Descirption', width: 580, 'attributes': editableCellAttributes},
             { id: 'employeeCount', name: 'Employee Count',sort: true},
     
             //used to delete rows

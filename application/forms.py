@@ -1,6 +1,6 @@
 from flask import request
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField, SelectField, DateField, TimeField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField, SelectField, DateField, TimeField, TextAreaField
 from wtforms.validators import DataRequired
 
 from .models import Position
@@ -22,7 +22,7 @@ class RegisterForm(FlaskForm):
 
 class PositionForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()], id='titleInput')
-    description = StringField('Description', validators=[DataRequired()], id='descriptionInput')
+    description = TextAreaField('Description', validators=[DataRequired()], id='descriptionInput')
     basePay = IntegerField('Base Pay', validators=[DataRequired()], id='basePayInput')
     submit = SubmitField('Add Position')
 
@@ -41,7 +41,7 @@ class EmployeeForm(FlaskForm):
 
 class DepartmentForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()], id='titleInput')
-    description = StringField('Description', validators=[DataRequired()], id='descriptionInput')
+    description = TextAreaField('Description', validators=[DataRequired()], id='descriptionInput')
     submit = SubmitField('Add Department')
 
 class EventForm(FlaskForm):

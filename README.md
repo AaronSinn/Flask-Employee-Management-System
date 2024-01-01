@@ -25,3 +25,19 @@ Go to `http://127.0.0.1:5000`
 * [Chart.js](https://www.chartjs.org/docs/latest/)
 * [Grid.js](https://gridjs.io/)
 
+## ScreenShots
+
+### Home Page
+![Home Page](/SquadSync Screenshots/home page.png)
+
+### Register Page
+![Register Page](/SquadSync Screenshots/register.png)
+
+### Dashboard
+![Dashboard](/SquadSync Screenshots/dashboard.png)
+
+### Employees Page
+![Employees Page](/SquadSync Screenshots/employees.png)
+
+### Calendar Page
+![Calendar Page](/SquadSync Screenshots/calendar.png)
