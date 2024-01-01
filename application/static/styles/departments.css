@@ -130,5 +130,5 @@ td[data-column-id="edit"] > button{
     text-align: center;
     margin-top: 10vh;
     font-family: 'DM Sans', sans-serif;
-    color: #198754;
+    color: var(--mainColour);
 }

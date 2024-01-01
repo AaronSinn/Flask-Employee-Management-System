@@ -21,11 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 'lastName', name: 'Last Name', resizable: true,'attributes': editableCellAttributes},
             { id: 'position', name: 'Position', resizable: true,'attributes': editableCellAttributes},
             { id: 'department', name: 'Department', resizable: true,'attributes': editableCellAttributes},
-            { id: 'email', name: 'Email', resizable: true,'attributes': editableCellAttributes},
+            { id: 'email', name: 'Email', width: 325,resizable: true,'attributes': editableCellAttributes},
             { id: 'phoneNumber', name: 'Work Phone', resizable: true, width: 160,'attributes': editableCellAttributes},
             { id: 'salary', name: 'Salary', formatter: (cell) => `$${cell}`, width: 120, resizable: true,'attributes': editableCellAttributes},
-            { id: 'dateHired', name: 'Date Hired', width: 170, resizable: true,'attributes': editableCellAttributes},
-            { id: 'birthday', name: 'Birthday', width: 170, resizable: true,'attributes': editableCellAttributes},
+            { id: 'dateHired', name: 'Date Hired', width: 160, resizable: true,'attributes': editableCellAttributes},
+            { id: 'birthday', name: 'Birthday', width: 160, resizable: true,'attributes': editableCellAttributes},
             
             //used to delete rows
             { id: 'delete', name: 'Delete', sort: false, width: 150, formatter: (cell, row) => {

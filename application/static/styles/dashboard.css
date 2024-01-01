@@ -4,6 +4,7 @@
 
 .mainContent{
     margin-left: 13vw;
+    margin-right: 3vw;
 }
 
 
@@ -14,17 +15,17 @@
 }
 
 .summary-box {
+    color: var(--mainColour);
     margin-top:10px;
     height: 150px;
     background-color:#ffffff;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .summary-box .title {
     width: 100%;
     font-size:20px;
     font-family: 'DM Sans', sans-serif;
-    color: #465865; 
     display:table;
     text-align: center;
     padding-top: 20px;
@@ -44,7 +45,71 @@
     text-align:center;
     font-size: 30px;
     font-family: 'DM Sans', sans-serif;
-    color: #465865; 
     padding-top: 18px;
     display:table-cell;
+}
+
+.largestDepartmentsTitle{
+    text-align:center;
+    font-size: 30px;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.chartsContainer{
+    margin-top: 4vh;
+}
+
+#chartTitle{
+    font-family: 'DM Sans', sans-serif;
+    color: var(--mainColour);
+}
+
+.listBox{
+    background-color:#ffffff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.eventBox{
+    margin-top: 8vh;
+}
+
+.phoneNumberBox{
+    margin-top: 4vh;
+}
+
+#listBoxTitle{
+    color: var(--mainColour);
+    width: 100%;
+    font-size:20px;
+    font-family: 'DM Sans', sans-serif;
+    text-align: center;
+}
+
+.list{
+    margin-top: 2vh;
+}
+
+.listItemContainer{
+    margin-top: 1vh;
+    margin-left: 1vw;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
+}
+
+.listIcon{
+    color: var(--mainColour);
+    font-size: 22px;
+}
+
+.listItem{
+    color: rgb(95, 95, 95);
+    margin-left: 0.5vw;
+    display: inline;
+}
+
+#footer{
+    text-align: center;
+    margin-top: 5vh;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--mainColour);
 }

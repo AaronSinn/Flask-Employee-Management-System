@@ -36,11 +36,11 @@ document.addEventListener('DOMContentLoaded',function(){
           }]
         },
         options: {
-        scales: {
-            y: {
-            beginAtZero: true
-            }
-        }
+          scales: {
+              y: {
+              beginAtZero: true
+              }
+          }
         }
     });
 

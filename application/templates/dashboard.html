@@ -5,6 +5,9 @@
 {% block static %}
 <link rel="stylesheet" href="{{ url_for('static',filename='styles/dashboard.css') }}">
 
+<!-- Script for Chartjs-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='scripts/dashboard/dashboard-chart.js') }}" id="dashboard-chart" data-username="{{username}}"></script>
 {% endblock %}
 
 {% block content %}
@@ -15,36 +18,73 @@
         <div class="col-md-3">
             <div class="summary-box">
                 <div class="title"><p>TOTAL EMPLOYEES</p></div>
-                <div class="value"><p><span bind="powerGenerated">19,167</span></p></div>
+                <div class="value"><p><span>{{totalEmployees}}</span></p></div>
             </div>
         </div>
     
         <div class="col-md-3">
             <div class="summary-box">
                 <div class="title"><p>TOTAL PAY ROLE</p></div>
-                <div class="value"><p><span bind="powerGenerated">$212300</span></p></div>
+                <div class="value"><p><span>$ {{totalPayRole}}</span></p></div>
             </div>
         </div>
 
         <div class="col-md-3">
             <div class="summary-box">
-                <div class="title"><p>LARGEST POSITION</p></div>
-                <div class="value"><p><span bind="powerGenerated">Salesman - 13 Employees</span></p></div>
+                <div class="title"><p>LARGEST DEPARTMENT(S)</p></div>
+                {% for department in largestDepartments %}
+                <div class="value">
+                    <div class="largestDepartmentsTitle">
+                        {{department.title}} - {{department.employeeCount}} Employees
+                    </div>
+                </div>
+                {% endfor %}
             </div>
         </div>
 
         <div class="col-md-3">
             <div class="summary-box">
                 <div class="title"><p>EMPLOYEES PER DEPARTMENT</p></div>
-                <div class="value"><p><span bind="powerGenerated">3.4 / Department</span></p></div>
+                <div class="value"><p><span>{{employeesPerDepartment}} / Department</span></p></div>
             </div>
         </div>
     </div>
 
-    <div class="col-md-6">
-        <div class="event-box">
-
+    <div class="row">
+        <div class="col-md-9">
+            <div class="chartsContainer">
+                <h4 id="chartTitle">Employees Salaries</h4>
+                <canvas id="myChart"></canvas>
+            </div>
         </div>
+    
+        <div class="col-md-3">
+
+            <div class="listBox eventBox">
+                <div id="listBoxTitle">TODAY'S CALENDAR</div>
+                <div class="list">
+                    {% for birthday in birthdays %}
+                        <div class="listItemContainer"><i class="fa-solid fa-cake-candles listIcon"></i><p class="listItem">{{birthday.name}}'s Birthday</p></div>
+                    {% endfor %}
+    
+                    {% for event in events %}
+                        <div class="listItemContainer"><i class="fa-solid fa-calendar listIcon"></i><p class="listItem">{{event.title}}, {{event.startTime}} - {{event.endTime}}</p></div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="listBox phoneNumberBox">
+                <div id="listBoxTitle">PHONE NUMBERS</div>
+                <div class="list">
+                    {% for employee in phoneNumbers %}
+                        <div class="listItemContainer"><i class="fa-solid fa-phone listIcon"></i><p class="listItem">{{employee.name}}: {{employee.phoneNumber}}</p></div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
     </div>
+    <footer id="footer"><p>SquadSync @2023</p></footer>
 </div>
+
 {% endblock %}

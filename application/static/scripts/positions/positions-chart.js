@@ -50,11 +50,16 @@ document.addEventListener('DOMContentLoaded', () =>{
           }]
         },
         options: {
-        scales: {
-            y: {
-            beginAtZero: true
+          scales: {
+              y: {
+              beginAtZero: true
+              }
+          },
+          plugins:{
+            legend: {
+             display: false
             }
-        }
+          }
         }
     });
 });
