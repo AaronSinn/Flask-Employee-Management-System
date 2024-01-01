@@ -22,6 +22,6 @@ python run.py
 Go to `http://127.0.0.1:5000`
 
 ## Javascript Libaries Used
-[Chart.js](https://www.chartjs.org/docs/latest/)
-[Grid.js](https://gridjs.io/)
+* [Chart.js](https://www.chartjs.org/docs/latest/)
+* [Grid.js](https://gridjs.io/)
 
