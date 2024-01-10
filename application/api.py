@@ -235,6 +235,11 @@ def departments(username):
     if request.method == 'POST':
         data = request.get_json()
 
+        #checks if the department already exists
+        department = Department.query.filter_by(title=data.get('title'))
+        if department:
+            return '', 400
+
         new_department = Department(title=data.get('title'), description=data.get('description'), admin_id=current_user.id)
         db.session.add(new_department)
         db.session.commit()

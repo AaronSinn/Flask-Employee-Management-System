@@ -9,7 +9,7 @@
     <link rel="icon" href="https://images.vexels.com/media/users/3/157564/isolated/preview/d7d05c7c1070e49a5385019c254901a6-simple-laptop-icon.png">
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/base.css') }}">
     {% block static %} {% endblock %}
-    <title>{% block title %} {% endblock %}</title>
+    <title id="pageTitle">{% block title %}{% endblock %}</title>
 </head>
 <body>
     <div class="container-fluid">
@@ -22,35 +22,35 @@
                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                         <li class="nav-item"  class="sidebarLink">
                             <a href="{{url_for('views.dashboard', username=current_user.username)}}" class="nav-link align-middle text-white px-0">
-                                <i class="fa-solid fa-house"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+                                <i class="fa-solid fa-house"></i> <span class="ms-1 d-none d-sm-inline" id="dashboardPageLink">Dashboard</span>
                             </a>
                         </li>
 
                         <li  class="sidebarLink">
                             <a href="{{url_for('views.employees', username=current_user.username)}}" class="nav-link px-0 text-white align-middle">
-                                <i class="fa-solid fa-users fa-sm"></i> <span class="ms-1 d-none d-sm-inline">Employees</span></a>
+                                <i class="fa-solid fa-users fa-sm"></i> <span class="ms-1 d-none d-sm-inline" id="employeePageLink">Employees</span></a>
                         </li>
 
                         <li  class="sidebarLink">
-                            <a href="{{url_for('views.positions', username=current_user.username)}}" class="nav-link px-0 text-white align-middle">
+                            <a href="{{url_for('views.positions', username=current_user.username)}}" class="nav-link px-0 text-white align-middle" id="positionsPageLink">
                                 <i class="fa-solid fa-briefcase"></i> <span class="ms-1 d-none d-sm-inline">Positions</span></a>
                         </li>
     
                         <li  class="sidebarLink">
                             <a href="{{url_for('views.departments', username=current_user.username)}}" class="nav-link px-0 text-white align-middle">
-                                <i class="fa-solid fa-sitemap fa-sm"></i> <span class="ms-1 d-none d-sm-inline">Departments</span> </a>
+                                <i class="fa-solid fa-sitemap fa-sm"></i> <span class="ms-1 d-none d-sm-inline" id="departmentsPageLink">Departments</span> </a>
                         </li>
 
                         <li  class="sidebarLink">
                             <a href="{{url_for('views.calendar', username=current_user.username)}}" class="nav-link px-0 text-white align-middle">
-                                <i class="fa-solid fa-calendar-days"></i> </i> <span class="ms-1 d-none d-sm-inline">Calendar</span> </a>
+                                <i class="fa-solid fa-calendar-days"></i> </i> <span class="ms-1 d-none d-sm-inline" id="calendarPageLink">Calendar</span> </a>
                         </li>
                     </ul>
 
                     <div class="dropdown pb-4">
                         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="https://miro.medium.com/v2/resize:fit:500/1*xDIevNE7HEMiJQVTYg0qDQ.png" alt="hugenerd" width="40" height="40" class="rounded-circle">
-                            <span class="d-none d-sm-inline mx-1">{{name}}</span>
+                            <div class="d-none d-sm-inline mx-1">{{sideBarName}}</div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
                             <li><a class="dropdown-item" href="{{url_for('auth.logout')}}">Logout</a></li>

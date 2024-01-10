@@ -109,7 +109,11 @@ def dashboard(username):
         except ZeroDivisionError:
             employeesPerDepartment = 0
 
-        return render_template('dashboard.html', name=current_user.firstName + " " + current_user.lastName, events=events, birthdays=birthdays, username=current_user.username, 
+        sideBarName=current_user.firstName + " " + current_user.lastName
+        if len(sideBarName) > 16:
+            sideBarName = '...'
+
+        return render_template('dashboard.html', name=current_user.firstName + " " + current_user.lastName, sideBarName=sideBarName, events=events, birthdays=birthdays, username=current_user.username, 
                                phoneNumbers=phoneNumbers, totalEmployees=totalEmployees, totalPayRole=totalPayRole, largestDepartments=largestDepartments, employeesPerDepartment=employeesPerDepartment)
     else: #makes it so the user can't put a random string as a username in the URL. eg(http://127.0.0.1:5000/FakeUsername is not acceptable)
         return redirect(url_for('auth.login'))
@@ -119,7 +123,11 @@ def dashboard(username):
 def positions(username):
     form = PositionForm()
 
-    return render_template('positions.html', name=current_user.firstName + " " + current_user.lastName, username=username, form=form)
+    sideBarName=current_user.firstName + " " + current_user.lastName
+    if len(sideBarName) > 16:
+        sideBarName = '...'
+
+    return render_template('positions.html', name=current_user.firstName + " " + current_user.lastName, sideBarName=sideBarName, username=username, form=form)
 
 @login_required
 @views.route('/<username>/employees')
@@ -139,7 +147,11 @@ def employees(username):
     form.department.choices = departmentList
     form.position.choices = positionList
 
-    return render_template('employees.html', name=current_user.firstName + " " + current_user.lastName, username=username, form=form)
+    sideBarName=current_user.firstName + " " + current_user.lastName
+    if len(sideBarName) > 16:
+        sideBarName = '...'
+
+    return render_template('employees.html', name=current_user.firstName + " " + current_user.lastName, sideBarName=sideBarName, username=username, form=form)
 
 @login_required
 @views.route('/<username>/departments')
@@ -147,7 +159,11 @@ def departments(username):
 
     form = DepartmentForm()
 
-    return render_template('departments.html', name=current_user.firstName + " " + current_user.lastName, username=username, form=form)
+    sideBarName=current_user.firstName + " " + current_user.lastName
+    if len(sideBarName) > 16:
+        sideBarName = '...'
+
+    return render_template('departments.html', name=current_user.firstName + " " + current_user.lastName, sideBarName=sideBarName, username=username, form=form)
 
 @login_required
 @views.route('<username>/calendar')
@@ -168,6 +184,11 @@ def calendar(username):
 
     form = EventForm()
     editForm = EventFormEdit()
-    return render_template('calendar.html', name=current_user.firstName + " " + current_user.lastName, username=username, form=form, editForm=editForm)
+
+    sideBarName=current_user.firstName + " " + current_user.lastName
+    if len(sideBarName) > 16:
+        sideBarName = '...'
+
+    return render_template('calendar.html', name=current_user.firstName + " " + current_user.lastName, sideBarName=sideBarName, username=username, form=form, editForm=editForm)
 
 

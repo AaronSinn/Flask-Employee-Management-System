@@ -1,2 +1,3 @@
 instance/
 application/__pycache__
+tests/__pycache__
