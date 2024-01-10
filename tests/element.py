@@ -38,3 +38,41 @@ class LoginUsernameElements(BasePageElements):
 
 class LoginPasswordElements(BasePageElements):
     locator = 'passwordInput'
+
+class PositionTitleElements(BasePageElements):
+    locator = 'titleInput'
+
+class PositionDescriptionElements(BasePageElements):
+    locator = 'descriptionInput'
+
+class PositionBasePayElements(BasePageElements):
+    locator = 'basePayInput'
+
+class DepartmentTitleElements(BasePageElements):
+    locator = 'titleInput'
+
+class DepartmentDescriptionElements(BasePageElements):
+    locator = 'descriptionInput'
+
+class EmployeeFirstNameElements(BasePageElements):
+    locator = 'firstNameInput'
+
+class EmployeeLastNameElements(BasePageElements):
+    locator = 'lastNameInput'
+
+class EmployeeEmailElements(BasePageElements):
+    locator = 'emailInput'
+
+class EmployeePhoneNumberElements(BasePageElements):
+    locator = 'phoneNumberInput'
+
+class EmployeeSalaryElements(BasePageElements):
+    locator = 'salaryInput'
+
+class EmployeeDateHiredElements(BasePageElements):
+    locator = 'dateHiredInput'
+
+class EmployeeBirthdayElements(BasePageElements):
+    locator = 'birthdayInput'
+
+#No classes are needed for position and department options as the default values will work

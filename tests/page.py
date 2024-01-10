@@ -1,4 +1,4 @@
-from locators import HomePageLocators, RegisterPageLocators, LoginPageLocators
+from locators import HomePageLocators, RegisterPageLocators, LoginPageLocators, DashboardPageLocators, PositionPageLocators, DepartmentsPageLocators
 from element import *
 
 class BasePage():
@@ -41,6 +41,8 @@ class LoginPage(BasePage):
     password_element = LoginPasswordElements() 
 
     def is_title_matches(self)-> bool:
+        print('EXPECTED: Login' )
+        print('ACTUAL:', self.driver.title)
         return 'Login' == self.driver.title
 
     def is_login_failed(self)-> bool:
@@ -53,10 +55,57 @@ class LoginPage(BasePage):
 class DashboardPage(BasePage):
 
     def is_title_matches(self, firstName, lastName)-> bool:
-        print('PASSED:',f"{firstName} {lastName}'s Dashboard")
+        print('EXPECTED: ', f"{firstName} {lastName}'s Dashboard" )
         print('ACTUAL:', self.driver.title)
         return f"{firstName} {lastName}'s Dashboard" == self.driver.title
     
+    def click_positions_link(self):
+        element = self.driver.find_element(*DashboardPageLocators.POSITION_BUTTON)
+        element.click()
 
+    def click_departments_link(self):
+        element = self.driver.find_element(*DashboardPageLocators.DEPARTMENT_BUTTON)
+        element.click()
     
+class PositionPage(BasePage):
 
+    title_element = PositionTitleElements()
+    description_element = PositionDescriptionElements()
+    base_pay_elements = PositionBasePayElements()
+
+    def is_title_matches(self)-> bool:
+        return 'Positions' == self.driver.title
+    
+    def click_submit(self):
+        element = self.driver.find_element(*PositionPageLocators.SUBMIT_BUTTON)
+        element.click()
+
+    def is_any_position_found(self):
+        return 'No matching records found.' not in self.driver.page_source
+
+    def is_position_not_found(self, position_title):
+        return position_title not in self.driver.page_source
+    
+    def get_position_count(self):
+        return int(self.driver.find_element(*PositionPageLocators.POSITION_COUNT).text)
+
+class DepartmentPage(BasePage):
+    def is_title_matches(self)-> bool:
+        return 'Departments' == self.driver.title
+    
+    title_element = DepartmentTitleElements()
+    description_element = DepartmentDescriptionElements()
+
+    def click_submit(self):
+        element = self.driver.find_element(*DepartmentsPageLocators.SUBMIT_BUTTON)
+        element.click()
+
+    def is_any_departments_found(self):
+        return 'No matching records found.' not in self.driver.page_source
+    
+    def get_department_count(self):
+         return int(self.driver.find_element(*DepartmentsPageLocators.DEPARTMENT_COUNT).text)
+    
+class EmployeePage(BasePage):
+    def is_title_matches(self)-> bool:
+        return 'Employees' == self.driver.title
