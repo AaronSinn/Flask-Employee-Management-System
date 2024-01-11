@@ -214,6 +214,52 @@ class testCases(unittest.TestCase):
 
         assert department_count_before == department_count_after, 'Department that already exists was created'
 
+        def test_employees(self):
+            dashboardPage = page.DashboardPage(self.driver)
+            employeesPage = page.EmployeePage(self.driver)
+
+            assert self.test_login_account()
+            self.driver.implicitly_wait(3)
+            assert dashboardPage.is_title_matches(firstName='ALREADY_CREATED_FIRSTNAME', lastName='ALREADY_CREATED_LASTNAME'), 'Dashboard title does not match'
+
+            dashboardPage.click_employes_link()
+
+            employeesPage.first_name_element = 'test_first_name'
+            employeesPage.last_name_element = 'test_last_name'
+            employeesPage.email_element = 'test.test@test.com'
+            employeesPage.phone_number_element = '226-123-4567'
+            employeesPage.salary_element = '123456'
+            employeesPage.date_hired_element = '2023-05-30'
+            employeesPage.birthday_element = '1992-07-13'
+            employeesPage.click_submit()
+
+            self.driver.implicitly_wait(3)
+            assert employeesPage.is_any_employees_found(), 'Employee was not created correctly'
+
+        def test_employees_invalid(self):
+            dashboardPage = page.DashboardPage(self.driver)
+            employeesPage = page.EmployeePage(self.driver)
+
+            assert self.test_login_account()
+            self.driver.implicitly_wait(3)
+            assert dashboardPage.is_title_matches(firstName='ALREADY_CREATED_FIRSTNAME', lastName='ALREADY_CREATED_LASTNAME'), 'Dashboard title does not match'
+
+            dashboardPage.click_employes_link()
+
+            employee_count_before = employeesPage.get_employee_count()
+            #will try to submit an employee with missing information
+            employeesPage.first_name_element = 'test_first_name'
+            employeesPage.salary_element = '123456'
+            employeesPage.date_hired_element = '2023-05-30'
+            employeesPage.birthday_element = '1992-07-13'
+            employeesPage.click_submit
+
+            self.driver.implicitly_wait(3)
+            employee_count_after = employeesPage.get_employee_count()
+
+            assert employee_count_before == employee_count_after, 'Employee was created with missing information'
+
+
     def tearDown(self):
         self.driver.close()
 

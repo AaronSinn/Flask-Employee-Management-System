@@ -1,4 +1,4 @@
-from locators import HomePageLocators, RegisterPageLocators, LoginPageLocators, DashboardPageLocators, PositionPageLocators, DepartmentsPageLocators
+from locators import HomePageLocators, RegisterPageLocators, LoginPageLocators, DashboardPageLocators, PositionPageLocators, DepartmentsPageLocators, EmployeePageLocators
 from element import *
 
 class BasePage():
@@ -66,6 +66,10 @@ class DashboardPage(BasePage):
     def click_departments_link(self):
         element = self.driver.find_element(*DashboardPageLocators.DEPARTMENT_BUTTON)
         element.click()
+
+    def click_employes_link(self):
+        element = self.driver.find_element(*DashboardPageLocators.EMPLOYEE_BUTTON)
+        element.click()
     
 class PositionPage(BasePage):
 
@@ -104,8 +108,26 @@ class DepartmentPage(BasePage):
         return 'No matching records found.' not in self.driver.page_source
     
     def get_department_count(self):
-         return int(self.driver.find_element(*DepartmentsPageLocators.DEPARTMENT_COUNT).text)
+        return int(self.driver.find_element(*DepartmentsPageLocators.DEPARTMENT_COUNT).text)
     
 class EmployeePage(BasePage):
     def is_title_matches(self)-> bool:
         return 'Employees' == self.driver.title
+    
+    first_name_element = EmployeeFirstNameElements()
+    last_name_element = EmployeeLastNameElements()
+    email_element = EmployeeEmailElements()
+    phone_number_element = EmployeePhoneNumberElements()
+    salary_element = EmployeeSalaryElements()
+    date_hired_element = EmployeeDateHiredElements()
+    birthday_element = EmployeeBirthdayElements()
+
+    def is_any_employees_found(self):
+        return 'No matching records found.' not in self.driver.page_source
+    
+    def get_employee_count(self):
+        return int(self.driver.find_element(*EmployeePageLocators.EMPLOYEE_COUNT).text)
+    
+    def click_submit(self):
+        element = self.driver.find_element(*EmployeePageLocators.SUBMIT_BUTTON)
+        element.click()
